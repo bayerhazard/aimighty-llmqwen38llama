@@ -5,8 +5,8 @@ workloads:
     replicaCount: 1
 
 image:
-  repository: docker.io/aamsellem/buun-llama-cpp
-  tag: 87c351d2
+  repository: ghcr.io/bayerhazard/buun-llama-cpp
+  tag: 38ae764
   pullPolicy: IfNotPresent
 
 nameOverride: ""

@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B chat via buun-llama-cpp (llama.cpp) — 200K context, vision, MTP speculation, turbo4 KV
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.08.4'
+  version: '26.08.5'
   categories:
     - AI
     - Vision
@@ -26,7 +26,7 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.08.4'
+  versionName: '26.08.5'
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for
     coding, vision and long-horizon agentic workflows on Olares One.
@@ -59,6 +59,10 @@ spec:
     Disk: 25 GB (model cache)
     CPU: 4-16 cores
   upgradeDescription: |
+    v26.08.5: Engine updated to spiritbuun/buun-llama-cpp master 38ae764 (2026-08-15) — custom
+    ghcr build (CUDA 13.1, sm_120, AVX-512/AMX, FA all quants). Picks up fused turbo4 K/V
+    materialization, on-device target argmax, Blackwell MoE prompt tuning, recurrent graph
+    reserve bounds.
     v26.08.4: Inference speedup — multi-spec decoding `draft-mtp,ngram-cache`
     (+~19% decode throughput, acceptance ~40% -> ~51%; measured, stable).
     v26.08.3: Agentic optimization — cap thinking tokens with `--reasoning-budget 16384` so agent
