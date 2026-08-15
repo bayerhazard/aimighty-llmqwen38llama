@@ -5,7 +5,7 @@ workloads:
     replicaCount: 1
 
 image:
-  repository: docker.io/library/buun-llama-cpp
+  repository: ghcr.io/bayerhazard/buun-llama-cpp
   tag: d89f0aeb
   pullPolicy: IfNotPresent
 
