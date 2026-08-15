@@ -1,0 +1,101 @@
+olaresManifest.version: '0.12.0'
+olaresManifest.type: app
+apiVersion: 'v3'
+
+workloadReplicas:
+  aimqwen38llama: 1
+
+metadata:
+  name: aimqwen38llama
+  icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
+  description: Qwen3.8-27B chat via buun-llama-cpp (llama.cpp) — 200K context, vision, MTP speculation, turbo4 KV
+  appid: aimqwen38llama
+  title: AIM Qwen3.8 27B
+  version: '26.08.4'
+  categories:
+    - AI
+    - Vision
+
+entrances:
+  - name: aimqwen38llama
+    port: 8000
+    host: aimqwen38llama
+    title: AIM Qwen3.8 27B
+    icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
+    openMethod: window
+    authLevel: internal
+
+spec:
+  versionName: '26.08.4'
+  fullDescription: |
+    AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for
+    coding, vision and long-horizon agentic workflows on Olares One.
+
+    **Model**
+    unsloth/Qwen3.8-27B-GGUF (UD-Q4_K_XL, ~18 GB, arch qwen35 — native Gated DeltaNet + Gated Attention,
+    MTP trained in).
+    Vision: mmproj-F16.gguf on GPU.
+    200K token context (native 262K).
+
+    **Inference Engine**
+    aamsellem/buun-llama-cpp:87c351d2 (custom Blackwell sm_120 build).
+    KV Cache: turbo4 (4-bit Walsh-Hadamard rotated).
+    Speculation: MTP (draft-mtp, --spec-draft-n-max 3) — self-drafting, no separate drafter.
+    Parallel slots: 1 (single-slot).
+    Batch: 2048/512 (processing-optimized).
+    Reasoning: on with --reasoning-preserve.
+
+    **Performance (RTX 5090 Blackwell, 24 GiB, 200k ctx, turbo4)**
+    - Decode: ~40-60 t/s warm (single-slot load)
+    - Boot to listening: ~6s (models on disk)
+    - Vision encoder on GPU
+
+    **API**
+    OpenAI-compatible: /v1/chat/completions, /v1/models, /health.
+
+    **Resource Usage**
+    GPU: ~23 GB VRAM (RTX 5090, 24 GB)
+    RAM: 24-40 GB
+    Disk: 25 GB (model cache)
+    CPU: 4-16 cores
+  upgradeDescription: |
+    v26.08.4: Inference speedup — multi-spec decoding `draft-mtp,ngram-cache`
+    (+~19% decode throughput, acceptance ~40% -> ~51%; measured, stable).
+    v26.08.3: Agentic optimization — cap thinking tokens with `--reasoning-budget 16384` so agent
+    turns don't stall in runaway reasoning (per-request override still possible).
+    v26.08.2: Fix boot crash — removed unsupported `--reasoning-preserve` flag (not present in
+    buun-llama-cpp 87c351d2); reasoning stays enabled via `--reasoning on`.
+    v26.08.1: Initial release. Qwen3.8-27B dense hybrid-attention VL model served via
+    aamsellem/buun-llama-cpp:87c351d2 with MTP self-speculation (--spec-type draft-mtp, depth 3).
+    Model: unsloth/Qwen3.8-27B-UD-Q4_K_XL + mmproj-F16 (vision). KV Cache: turbo4.
+    Reasoning: on with --reasoning-preserve. Built for Olares 1.12.6.
+  developer: Aimighty
+  website: https://github.com/bayerhazard/aimighty-llmqwen38llama
+  sourceCode: https://github.com/bayerhazard/aimighty-llmqwen38llama
+  requiredCpu: "4"
+  limitedCpu: "16"
+  requiredMemory: 24Gi
+  limitedMemory: 40Gi
+  requiredDisk: 25Gi
+  limitedDisk: 50Gi
+  requiredGpu: 1
+  supportArch:
+    - amd64
+
+permission:
+  appData: true
+
+envs:
+  - envName: HF_TOKEN
+    required: false
+    applyOnChange: true
+    valueFrom:
+      envName: OLARES_USER_HUGGINGFACE_TOKEN
+
+options:
+  apiTimeout: 3600
+  allowMultipleInstall: false
+  dependencies:
+    - name: olares
+      version: '>=1.12.6-0'
+      type: system

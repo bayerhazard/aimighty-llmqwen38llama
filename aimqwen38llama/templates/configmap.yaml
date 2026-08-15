@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aimqwen38llama-env
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: aimqwen38llama
+    app.kubernetes.io/managed-by: Helm
+data:
+  CTX_SIZE: "{{ .Values.env.CTX_SIZE }}"
+  TARGET_FILE: "{{ .Values.env.TARGET_FILE }}"
+  TARGET_URL: "{{ .Values.env.TARGET_URL }}"
+  MMPROJ_FILE: "{{ .Values.env.MMPROJ_FILE }}"
+  MMPROJ_URL: "{{ .Values.env.MMPROJ_URL }}"
+  KV_TYPE: "{{ .Values.env.KV_TYPE }}"
+  MODEL_ALIAS: "{{ .Values.env.MODEL_ALIAS }}"
+  THREADS: "{{ .Values.env.THREADS }}"
+  PARALLEL: "{{ .Values.env.PARALLEL }}"

@@ -1,0 +1,228 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aimqwen38llama
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: aimqwen38llama
+    io.kompose.service: aimqwen38llama
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+spec:
+  replicas: {{ .Values.workloads.aimqwen38llama.replicaCount }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      io.kompose.service: aimqwen38llama
+  template:
+    metadata:
+      labels:
+        app: aimqwen38llama
+        io.kompose.network/chrome-default: "true"
+        io.kompose.service: aimqwen38llama
+    spec:
+      initContainers:
+      - name: check-auth
+        image: beclab/wait-for:0.1.0
+        imagePullPolicy: IfNotPresent
+        command: ["true"]
+        args: ["-it", "authelia-backend.user-system-aimighty:9091"]
+      - name: render-envoy-config
+        image: beclab/busybox:1.28
+        imagePullPolicy: IfNotPresent
+        command:
+        - /bin/sh
+        - -c
+        - |
+          while [ ! -f /var/run/secrets/kubernetes.io/serviceaccount/token ]; do sleep 0.2; done
+          TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+          awk -v token="$TOKEN" '{gsub(/__SA_TOKEN__/, token); print}' /work/envoy.yaml > /config/envoy.yaml
+          awk -v token="$TOKEN" '{gsub(/__SA_TOKEN__/, token); print}' /work/envoy2.yaml > /config/envoy2.yaml
+          cat /config/envoy2.yaml
+        volumeMounts:
+        - mountPath: /config
+          name: envoy-config
+        - mountPath: /work/envoy.yaml
+          name: olares-sidecar-config
+          subPath: envoy.yaml
+        - mountPath: /work/envoy2.yaml
+          name: olares-sidecar-config
+          subPath: envoy2.yaml
+      - name: olares-sidecar-init
+        image: beclab/init:v1.2.3
+        imagePullPolicy: IfNotPresent
+        command: ["/bin/sh"]
+        resources:
+          limits:
+            nvidia.com/gpu: "0"
+          requests:
+            nvidia.com/gpu: "0"
+      containers:
+      - name: aimqwen38llama
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        command:
+          - /bin/bash
+          - -c
+          - |
+            set -e
+            MODELS_DIR=${MODELS_DIR:-/models}
+            SHARED_DIR=${SHARED_DIR:-/shared-models/llms}
+            mkdir -p "$MODELS_DIR" "$SHARED_DIR"
+            HF_AUTH=""
+            if [ -n "$HF_TOKEN" ]; then HF_AUTH="-H \"Authorization: Bearer $HF_TOKEN\""; fi
+            if [ -s "$MODELS_DIR/$TARGET_FILE" ] && [ ! -f "$SHARED_DIR/$TARGET_FILE.ok" ]; then
+              echo "==> Migrating $TARGET_FILE from per-app -> shared"
+              mv "$MODELS_DIR/$TARGET_FILE" "$SHARED_DIR/$TARGET_FILE"
+              touch "$SHARED_DIR/$TARGET_FILE.ok"
+            fi
+            if [ ! -f "$SHARED_DIR/$TARGET_FILE.ok" ]; then
+              echo "==> Downloading $TARGET_FILE (~18 GB)"
+              eval curl -fL -C - --retry 20 --retry-delay 15 --retry-all-errors --connect-timeout 30 $HF_AUTH \
+                "$TARGET_URL" -o "$SHARED_DIR/$TARGET_FILE"
+              touch "$SHARED_DIR/$TARGET_FILE.ok"
+            fi
+            if [ -n "$MMPROJ_FILE" ] && [ ! -f "$SHARED_DIR/$MMPROJ_FILE.ok" ]; then
+              echo "==> Downloading $MMPROJ_FILE (~900 MB, vision encoder)"
+              eval curl -fL -C - --retry 20 --retry-delay 15 --retry-all-errors --connect-timeout 30 $HF_AUTH \
+                "${MMPROJ_URL}" -o "$SHARED_DIR/$MMPROJ_FILE"
+              touch "$SHARED_DIR/$MMPROJ_FILE.ok"
+            fi
+            MMPROJ_ARG=""
+            if [ -n "$MMPROJ_FILE" ] && [ -f "$SHARED_DIR/$MMPROJ_FILE" ]; then
+              MMPROJ_ARG="--mmproj $SHARED_DIR/$MMPROJ_FILE --mmproj-gpu-swap"
+              echo "==> Vision enabled: mmproj=$MMPROJ_FILE with gpu-swap"
+            fi
+            exec /app/llama-server \
+              --model "$SHARED_DIR/$TARGET_FILE" \
+              $MMPROJ_ARG \
+              --alias "$MODEL_ALIAS" \
+              --host 0.0.0.0 --port 8000 \
+              -ngl all \
+              --ctx-size "${CTX_SIZE:-200000}" --threads "${THREADS:-16}" \
+              --cache-type-k turbo4 --cache-type-v "${KV_TYPE:-turbo4}" \
+              --parallel "${PARALLEL:-1}" \
+              --flash-attn on --jinja \
+              --reasoning on --reasoning-budget 16384 \
+              --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 \
+              --batch-size 2048 --ubatch-size 512 \
+              --spec-type draft-mtp,ngram-cache \
+              --spec-draft-n-max 3
+        env:
+        - name: HF_HOME
+          value: /models/huggingface
+        - name: HF_TOKEN
+          value: {{ .Values.olaresEnv.HF_TOKEN | default "" | quote }}
+        - name: MODELS_DIR
+          value: /models
+        - name: GPU_TYPE
+          value: nvidia
+        - name: CUDA_DEVICE_MEMORY_LIMIT_0
+          value: 30000m
+        envFrom:
+        - configMapRef:
+            name: aimqwen38llama-env
+        ports:
+        - containerPort: {{ .Values.service.port }}
+          protocol: TCP
+        resources:
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+            nvidia.com/gpu: {{ index .Values.resources.limits "nvidia.com/gpu" }}
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+            nvidia.com/gpu: {{ index .Values.resources.requests "nvidia.com/gpu" }}
+        startupProbe:
+          httpGet:
+            path: {{ .Values.probes.startup.path }}
+            port: {{ .Values.probes.startup.port }}
+          failureThreshold: {{ .Values.probes.startup.failureThreshold }}
+          periodSeconds: {{ .Values.probes.startup.periodSeconds }}
+          initialDelaySeconds: {{ .Values.probes.startup.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.probes.startup.timeoutSeconds }}
+        livenessProbe:
+          httpGet:
+            path: {{ .Values.probes.liveness.path }}
+            port: {{ .Values.probes.liveness.port }}
+          failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+          periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
+          initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+        volumeMounts:
+        - name: models
+          mountPath: /models
+        - name: shared-models
+          mountPath: /shared-models
+      - name: olares-envoy-sidecar
+        image: beclab/envoy:v1.25.11.1
+        imagePullPolicy: IfNotPresent
+        args: ["--log-level", "debug", "-c", "/config/envoy.yaml", "--service-cluster", "default."]
+        env:
+        - name: POD_UID
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.uid
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.serviceAccountName
+        - name: APP_KEY
+        - name: APP_SECRET
+        ports:
+        - name: proxy-admin
+          containerPort: 15000
+          protocol: TCP
+        - name: proxy-inbound
+          containerPort: 15003
+          protocol: TCP
+        - name: proxy-outbound
+          containerPort: 15001
+          protocol: TCP
+        - name: liveness-port
+          containerPort: 15008
+          protocol: TCP
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            add: ["NET_ADMIN"]
+          runAsUser: 1555
+        volumeMounts:
+        - mountPath: /config
+          name: envoy-config
+      volumes:
+      - name: models
+        hostPath:
+          path: /olares/rootfs/userspace/pvc-userspace-aimighty-hh1h3chfhnoebc1y/Data/aimqwen38llama/models
+          type: DirectoryOrCreate
+      - name: shared-models
+        hostPath:
+          path: /olares/share/ai/model
+          type: DirectoryOrCreate
+      - name: envoy-config
+        emptyDir: {}
+      - name: olares-sidecar-config
+        configMap:
+          name: olares-sidecar-config-aimqwen38llama
+          defaultMode: 420
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

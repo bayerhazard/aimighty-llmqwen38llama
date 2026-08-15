@@ -1,0 +1,72 @@
+replicaCount: 1
+
+workloads:
+  aimqwen38llama:
+    replicaCount: 1
+
+image:
+  repository: docker.io/aamsellem/buun-llama-cpp
+  tag: 87c351d2
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: aimqwen38llama
+
+service:
+  type: ClusterIP
+  port: 8000
+
+resources:
+  limits:
+    cpu: 16
+    memory: 40Gi
+    nvidia.com/gpu: 1
+  requests:
+    cpu: 4
+    memory: 24Gi
+    nvidia.com/gpu: 1
+
+env:
+  CTX_SIZE: "200000"
+  TARGET_FILE: "Qwen3.8-27B-UD-Q4_K_XL.gguf"
+  TARGET_URL: "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-UD-Q4_K_XL.gguf"
+  MMPROJ_FILE: "mmproj-F16.gguf"
+  MMPROJ_URL: "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+  KV_TYPE: "turbo4"
+  MODEL_ALIAS: "qwen3.8-27b"
+  THREADS: "16"
+  PARALLEL: "1"
+
+# Olares-injected environment variables (from OlaresManifest envs:).
+# Default present so standalone `helm template` renders without nil pointer;
+# Olares overrides this at install time.
+olaresEnv:
+  HF_TOKEN: ""
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+persistence:
+  models:
+    enabled: true
+    size: 50Gi
+  shared:
+    enabled: true
+    size: 200Gi
+
+probes:
+  startup:
+    path: /health
+    port: 8000
+    failureThreshold: 720
+    periodSeconds: 30
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
+  liveness:
+    path: /health
+    port: 8000
+    failureThreshold: 5
+    periodSeconds: 30
+    initialDelaySeconds: 600
+    timeoutSeconds: 10
