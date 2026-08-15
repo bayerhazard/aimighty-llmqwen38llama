@@ -60,7 +60,7 @@ spec:
             nvidia.com/gpu: "0"
       containers:
       - name: aimqwen38llama
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: "{{ .Values.image.full }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command:
           - /bin/bash

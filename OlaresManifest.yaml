@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.08.1'
+  version: '26.08.2'
   categories:
     - AI
     - Vision
@@ -26,7 +26,7 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.08.1'
+  versionName: '26.08.2'
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
