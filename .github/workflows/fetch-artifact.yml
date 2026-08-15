@@ -18,6 +18,8 @@ jobs:
   fetch:
     runs-on: ubuntu-24.04
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
@@ -30,8 +32,10 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TAG="${{ inputs.release_tag }}"
-          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "buun-llama-cpp $TAG" --notes "Build artifact for buun-llama-cpp commit" || true
+          gh --repo bayerhazard/aimighty-llmqwen3635ba3b release view "${{ inputs.release_tag }}" >/dev/null 2>&1 \
+            || gh --repo bayerhazard/aimighty-llmqwen3635ba3b release create "${{ inputs.release_tag }}" \
+                 --title "buun-llama-cpp ${{ inputs.release_tag }}" \
+                 --notes "Build artifact for buun-llama-cpp commit"
 
       - name: Package and upload to release
         env:
