@@ -9,6 +9,9 @@ on:
       release_tag:
         description: 'Release tag to attach artifact to'
         required: true
+      artifact_name:
+        description: 'Artifact name to download'
+        required: true
 
 permissions:
   contents: write
@@ -23,7 +26,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: buun-llama-server-38ae764a569e16ed4e21b137d4f1efbbe96b2a0e
+          name: ${{ inputs.artifact_name }}
           run-id: ${{ inputs.run_id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: ./artifact

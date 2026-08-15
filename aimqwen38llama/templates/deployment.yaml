@@ -107,7 +107,7 @@ spec:
               --reasoning on --reasoning-budget 16384 \
               --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 \
               --batch-size 2048 --ubatch-size 512 \
-              --spec-type draft-mtp,ngram-cache \
+              --spec-type draft-mtp \
               --spec-draft-n-max 3
         env:
         - name: HF_HOME
