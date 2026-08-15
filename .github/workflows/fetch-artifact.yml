@@ -38,7 +38,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd artifact
-          ls -la
-          for f in *; do
+          find . -type f | while read -r f; do
+            echo "uploading $f"
             gh release upload "${{ inputs.release_tag }}" "$f" --clobber || true
           done
+          gh release view "${{ inputs.release_tag }}" --json assets -q '.assets[].name'
