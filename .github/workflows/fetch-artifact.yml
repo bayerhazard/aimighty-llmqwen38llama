@@ -40,5 +40,5 @@ jobs:
           cd artifact
           tar -czf /tmp/buun-build-output.tar.gz .
           ls -la /tmp/buun-build-output.tar.gz
-          gh release upload "${{ inputs.release_tag }}" /tmp/buun-build-output.tar.gz --clobber
-          gh release view "${{ inputs.release_tag }}" --json assets -q '.assets[].name'
+          gh --repo bayerhazard/aimighty-llmqwen3635ba3b release upload "${{ inputs.release_tag }}" /tmp/buun-build-output.tar.gz --clobber
+          gh --repo bayerhazard/aimighty-llmqwen3635ba3b release view "${{ inputs.release_tag }}" --json assets -q '.assets[].name'
