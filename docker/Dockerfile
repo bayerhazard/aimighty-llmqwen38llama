@@ -37,7 +37,7 @@ RUN cmake -B build -G Ninja \
     -DGGML_F16C=ON \
     -DLLAMA_OPENSSL=ON \
     -DLLAMA_CURL=OFF \
-    && cmake --build build --config Release -j$(nproc) --target llama-server llama-bench
+    && cmake --build build --config Release -j$(nproc) --target llama-server
 
 # ---- Stage 2: Runtime (mirrors aamsellem/buun-llama-cpp layout) ----
 FROM nvidia/cuda:13.1.1-runtime-ubuntu24.04
@@ -48,7 +48,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /build/buun-llama-cpp/build/bin/llama-server /app/llama-server
-COPY --from=builder /build/buun-llama-cpp/build/bin/llama-bench /app/llama-bench
 COPY --from=builder /build/buun-llama-cpp/build/bin/*.so* /app/
 
 ENV LD_LIBRARY_PATH=/app
