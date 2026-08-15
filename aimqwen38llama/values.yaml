@@ -6,7 +6,7 @@ workloads:
 
 image:
   repository: docker.io/library/buun-llama-cpp
-  tag: 38ae764
+  tag: d89f0aeb
   pullPolicy: IfNotPresent
 
 nameOverride: ""
