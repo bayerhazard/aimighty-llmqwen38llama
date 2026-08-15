@@ -1,0 +1,44 @@
+name: Fetch buun artifact to release
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Run ID of the source artifact run'
+        required: true
+      release_tag:
+        description: 'Release tag to attach artifact to'
+        required: true
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: buun-llama-server-38ae764a569e16ed4e21b137d4f1efbbe96b2a0e
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: ./artifact
+
+      - name: Create release (if missing)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ inputs.release_tag }}"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "buun-llama-cpp $TAG" --notes "Build artifact for buun-llama-cpp commit" || true
+
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd artifact
+          ls -la
+          for f in *; do
+            gh release upload "${{ inputs.release_tag }}" "$f" --clobber || true
+          done
