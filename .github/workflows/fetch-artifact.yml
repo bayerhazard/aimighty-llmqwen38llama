@@ -33,13 +33,12 @@ jobs:
           TAG="${{ inputs.release_tag }}"
           gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --title "buun-llama-cpp $TAG" --notes "Build artifact for buun-llama-cpp commit" || true
 
-      - name: Upload to release
+      - name: Package and upload to release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd artifact
-          find . -type f | while read -r f; do
-            echo "uploading $f"
-            gh release upload "${{ inputs.release_tag }}" "$f" --clobber || true
-          done
+          tar -czf /tmp/buun-build-output.tar.gz .
+          ls -la /tmp/buun-build-output.tar.gz
+          gh release upload "${{ inputs.release_tag }}" /tmp/buun-build-output.tar.gz --clobber
           gh release view "${{ inputs.release_tag }}" --json assets -q '.assets[].name'
