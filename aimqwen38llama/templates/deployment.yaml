@@ -103,6 +103,7 @@ spec:
               --ctx-size "${CTX_SIZE:-200000}" --threads "${THREADS:-16}" \
               --cache-type-k turbo4 --cache-type-v "${KV_TYPE:-turbo4}" \
               --parallel "${PARALLEL:-1}" \
+              --cache-reuse "${CACHE_REUSE:-256}" \
               --flash-attn on --jinja \
               --reasoning on --reasoning-budget 16384 \
               --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 \

@@ -16,3 +16,4 @@ data:
   MODEL_ALIAS: "{{ .Values.env.MODEL_ALIAS }}"
   THREADS: "{{ .Values.env.THREADS }}"
   PARALLEL: "{{ .Values.env.PARALLEL }}"
+  CACHE_REUSE: "{{ .Values.env.CACHE_REUSE }}"

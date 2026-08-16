@@ -37,6 +37,7 @@ env:
   MODEL_ALIAS: "qwen3.8-27b"
   THREADS: "16"
   PARALLEL: "1"
+  CACHE_REUSE: "256"
 
 # Olares-injected environment variables (from OlaresManifest envs:).
 # Default present so standalone `helm template` renders without nil pointer;

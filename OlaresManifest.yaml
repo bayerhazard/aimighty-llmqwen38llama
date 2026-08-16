@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.08.3'
+  version: '26.08.4'
   categories:
     - AI
     - Vision
@@ -26,7 +26,7 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.08.3'
+  versionName: '26.08.4'
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -38,14 +38,14 @@ spec:
     Inference Engine:
     - buun-llama-cpp (spiritbuun master HEAD, CUDA 13.1 sm_120 custom build)
     - MTP (draft-mtp, --spec-draft-n-max 3)
-    - Parallel slots: 1, Batch: 2048/512, Reasoning: on with reasoning-preserve
+    - Parallel slots: 1, Batch: 2048/512, Reasoning: on, KV-cache reuse
 
     Performance:
     Space Invaders HTML: 100 t/s
     Creative Writing: 65 t/s
     OpenAI-compatible: /v1/chat/completions, /v1/models, /health
   upgradeDescription: |
-    26.08.3 Initial Release for Olares One
+    26.08.4: KV-cache reuse (--cache-reuse 256) for long-context divergence; Built for Olares 1.12.6.
   developer: Aimighty
   website: https://github.com/bayerhazard/aimighty-llmqwen38llama
   sourceCode: https://github.com/bayerhazard/aimighty-llmqwen38llama
