@@ -94,7 +94,8 @@ spec:
               MMPROJ_ARG="--mmproj $SHARED_DIR/$MMPROJ_FILE --mmproj-gpu-swap"
               echo "==> Vision enabled: mmproj=$MMPROJ_FILE with gpu-swap"
             fi
-            exec /app/llama-server \
+            export LD_LIBRARY_PATH=/shared-models/llms/build-output-39d97a8:${LD_LIBRARY_PATH:-}
+            exec /shared-models/llms/build-output-39d97a8/llama-server-new \
               --model "$SHARED_DIR/$TARGET_FILE" \
               $MMPROJ_ARG \
               --alias "$MODEL_ALIAS" \
