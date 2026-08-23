@@ -15,8 +15,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ARG PIN=8337e4cd3861406fc04e0854b1409cd1b027fbc9
 
 WORKDIR /build
+COPY docker/ckpt-fix.patch /build/ckpt-fix.patch
 RUN git clone https://github.com/ikawrakow/ik_llama.cpp.git && \
-    cd ik_llama.cpp && git checkout ${PIN} && git rev-parse HEAD
+    cd ik_llama.cpp && git checkout ${PIN} && \
+    git apply /build/ckpt-fix.patch && \
+    git rev-parse HEAD
 
 WORKDIR /build/ik_llama.cpp
 RUN cmake -B build -G Ninja \
