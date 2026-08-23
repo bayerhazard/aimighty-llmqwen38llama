@@ -108,6 +108,8 @@ spec:
               --flash-attn on --jinja \
               --reasoning-preserve \
               --chat-template-kwargs '{"reasoning_effort":"medium"}' \
+              --reasoning-budget 8192 \
+              --reasoning-budget-message 'Enough reasoning - provide your final answer now.' \
               --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 \
               --batch-size 2048 --ubatch-size 512 \
               --spec-type draft-mtp \
