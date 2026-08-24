@@ -94,8 +94,8 @@ spec:
               MMPROJ_ARG="--mmproj $SHARED_DIR/$MMPROJ_FILE --mmproj-gpu-swap"
               echo "==> Vision enabled: mmproj=$MMPROJ_FILE with gpu-swap"
             fi
-            export LD_LIBRARY_PATH=/shared-models/llms/build-output-39d97a8:${LD_LIBRARY_PATH:-}
-            exec /shared-models/llms/build-output-39d97a8/llama-server-new \
+            export LD_LIBRARY_PATH=/app:${LD_LIBRARY_PATH:-}
+            exec /app/llama-server \
               --model "$SHARED_DIR/$TARGET_FILE" \
               $MMPROJ_ARG \
               --alias "$MODEL_ALIAS" \
@@ -121,8 +121,6 @@ spec:
           value: {{ .Values.olaresEnv.HF_TOKEN | default "" | quote }}
         - name: MODELS_DIR
           value: /models
-        - name: GPU_TYPE
-          value: nvidia
         - name: CUDA_DEVICE_MEMORY_LIMIT_0
           value: 30000m
         envFrom:

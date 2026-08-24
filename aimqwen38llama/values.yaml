@@ -1,13 +1,11 @@
-replicaCount: 1
-
 workloads:
   aimqwen38llama:
     replicaCount: 1
 
 image:
   repository: ghcr.io/bayerhazard/buun-llama-cpp
-  tag: d89f0aeb
-  full: ghcr.io/bayerhazard/buun-llama-cpp:d89f0aeb
+  tag: 39d97a8
+  full: ghcr.io/bayerhazard/buun-llama-cpp:39d97a8
   pullPolicy: IfNotPresent
 
 nameOverride: ""
