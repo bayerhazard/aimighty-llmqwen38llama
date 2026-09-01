@@ -3,11 +3,8 @@ name: Package buun build-output to ghcr
 on:
   workflow_dispatch:
     inputs:
-      run_id:
-        description: 'Run ID of the build-output artifact run (bayerhazard/aimighty-llmqwen3635ba3b)'
-        required: true
-      artifact_name:
-        description: 'Name of the build-output artifact (buun-llama-server-<pin>)'
+      release_tag:
+        description: 'Release tag with buun-build-output.tar.gz asset (in THIS repo)'
         required: true
       image_tag:
         description: 'Target ghcr image tag'
@@ -16,7 +13,6 @@ on:
 permissions:
   contents: write
   packages: write
-  actions: read
 
 jobs:
   package:
@@ -24,18 +20,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download build-output artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ inputs.artifact_name }}
-          run-id: ${{ inputs.run_id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          repository: bayerhazard/aimighty-llmqwen3635ba3b
-          path: ./buun-files
-
-      - name: Inspect build-output
+      - name: Download build-output asset
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ls -la ./buun-files/
+          gh release download "${{ inputs.release_tag }}" \
+            --pattern "buun-build-output.tar.gz" --dir /tmp/build-output
+          mkdir -p /tmp/build-output-unpacked
+          tar -xzf /tmp/build-output/buun-build-output.tar.gz -C /tmp/build-output-unpacked
+          ls -la /tmp/build-output-unpacked/
+          rm -rf ./buun-files && mkdir -p ./buun-files
+          cp /tmp/build-output-unpacked/* ./buun-files/
 
       - name: Create Dockerfile
         run: |
