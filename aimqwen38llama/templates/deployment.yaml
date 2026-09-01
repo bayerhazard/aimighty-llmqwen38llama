@@ -89,15 +89,27 @@ spec:
                 "${MMPROJ_URL}" -o "$SHARED_DIR/$MMPROJ_FILE"
               touch "$SHARED_DIR/$MMPROJ_FILE.ok"
             fi
+            if [ -n "$DRAFT_MODEL_FILE" ] && [ ! -f "$SHARED_DIR/$DRAFT_MODEL_FILE.ok" ]; then
+              echo "==> Downloading $DRAFT_MODEL_FILE (speculative draft model)"
+              eval curl -fL -C - --retry 20 --retry-delay 15 --retry-all-errors --connect-timeout 30 $HF_AUTH \
+                "${DRAFT_MODEL_URL}" -o "$SHARED_DIR/$DRAFT_MODEL_FILE"
+              touch "$SHARED_DIR/$DRAFT_MODEL_FILE.ok"
+            fi
             MMPROJ_ARG=""
             if [ -n "$MMPROJ_FILE" ] && [ -f "$SHARED_DIR/$MMPROJ_FILE" ]; then
               MMPROJ_ARG="--mmproj $SHARED_DIR/$MMPROJ_FILE --mmproj-gpu-swap"
               echo "==> Vision enabled: mmproj=$MMPROJ_FILE with gpu-swap"
             fi
+            DRAFT_MODEL_ARG=""
+            if [ -n "$DRAFT_MODEL_FILE" ] && [ -f "$SHARED_DIR/$DRAFT_MODEL_FILE" ]; then
+              DRAFT_MODEL_ARG="--spec-draft-model $SHARED_DIR/$DRAFT_MODEL_FILE"
+              echo "==> Draft model enabled: $DRAFT_MODEL_FILE"
+            fi
             export LD_LIBRARY_PATH=/app:${LD_LIBRARY_PATH:-}
             exec /app/llama-server \
               --model "$SHARED_DIR/$TARGET_FILE" \
               $MMPROJ_ARG \
+              $DRAFT_MODEL_ARG \
               --alias "$MODEL_ALIAS" \
               --host 0.0.0.0 --port 8000 \
               -ngl all \
@@ -112,8 +124,8 @@ spec:
               --reasoning-budget-message 'Enough reasoning - provide your final answer now.' \
               --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 \
               --batch-size 2048 --ubatch-size 512 \
-              --spec-type draft-mtp \
-              --spec-draft-n-max 3
+              --spec-type "${SPEC_TYPE:-draft-mtp}" \
+              --spec-draft-n-max "${DRAFT_MAX:-3}"
         env:
         - name: HF_HOME
           value: /models/huggingface

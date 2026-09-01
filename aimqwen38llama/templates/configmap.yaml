@@ -17,3 +17,7 @@ data:
   THREADS: "{{ .Values.env.THREADS }}"
   PARALLEL: "{{ .Values.env.PARALLEL }}"
   CACHE_REUSE: "{{ .Values.env.CACHE_REUSE }}"
+  SPEC_TYPE: "{{ .Values.env.SPEC_TYPE }}"
+  DRAFT_MAX: "{{ .Values.env.DRAFT_MAX }}"
+  DRAFT_MODEL_FILE: "{{ .Values.env.DRAFT_MODEL_FILE }}"
+  DRAFT_MODEL_URL: "{{ .Values.env.DRAFT_MODEL_URL }}"

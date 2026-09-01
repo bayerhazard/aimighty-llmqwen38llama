@@ -4,8 +4,8 @@ workloads:
 
 image:
   repository: ghcr.io/bayerhazard/buun-llama-cpp
-  tag: 39d97a8
-  full: ghcr.io/bayerhazard/buun-llama-cpp:39d97a8
+  tag: 283ba19e
+  full: ghcr.io/bayerhazard/buun-llama-cpp:283ba19e
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -36,6 +36,10 @@ env:
   THREADS: "16"
   PARALLEL: "1"
   CACHE_REUSE: "256"
+  SPEC_TYPE: "draft-mtp"
+  DRAFT_MAX: "3"
+  DRAFT_MODEL_FILE: ""
+  DRAFT_MODEL_URL: ""
 
 # Olares-injected environment variables (from OlaresManifest envs:).
 # Default present so standalone `helm template` renders without nil pointer;

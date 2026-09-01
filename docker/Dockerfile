@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libcurl4-openssl-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ARG PIN=38ae764a569e16ed4e21b137d4f1efbbe96b2a0e
+ARG PIN=283ba19eda82d18e93c44ced5efcf3da0494b83d
 
 WORKDIR /build
 RUN git clone https://github.com/spiritbuun/buun-llama-cpp.git && \

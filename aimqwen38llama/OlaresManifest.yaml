@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.08.14'
+  version: '26.9.1'
   categories:
     - AI
     - Vision
@@ -26,7 +26,7 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.08.14'
+  versionName: '26.9.1'
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -45,6 +45,7 @@ spec:
     Creative Writing: 65 t/s
     OpenAI-compatible: /v1/chat/completions, /v1/models, /health
   upgradeDescription: |
+    26.9.1: Engine-Update buun-llama-cpp 283ba19e (MTP-Context-Sizing/Fit-Alignment, DFlash2-GGUF-Schema, Upstream-Sync 20260829) — Image ghcr.io/bayerhazard/buun-llama-cpp:283ba19e; Spec-Typ parametrisierbar (SPEC_TYPE/DRAFT_MAX/DRAFT_MODEL_FILE, Default MTP); Built for Olares 1.12.6.
     26.08.14: Unified engine image ghcr.io/bayerhazard/buun-llama-cpp:39d97a8 — llama-server binary now ships inside the image (no shared-disk build pin); removed redundant values; Built for Olares 1.12.6.
     26.08.13: --reasoning-budget 8192 (hartes Thinking-Cap, kein Ausufern) + budget-message; Antworten entkoppelt von max_tokens; Built for Olares 1.12.6.
     26.08.12: --reasoning-preserve (Reasoning bleibt im Multi-Turn-Verlauf erhalten) + GGUF Dynamic V3.0 (Unsloth Aug-19-Update, ~10% mehr Genauigkeit); Built for Olares 1.12.6.
