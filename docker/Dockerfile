@@ -37,6 +37,8 @@ RUN cmake -B build -G Ninja \
     -DGGML_F16C=ON \
     -DLLAMA_OPENSSL=ON \
     -DLLAMA_CURL=OFF \
+    -DCMAKE_EXE_LINKER_FLAGS="-Wl,-rpath-link,/usr/local/cuda/lib64/stubs" \
+    -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-rpath-link,/usr/local/cuda/lib64/stubs" \
     && cmake --build build --config Release -j$(nproc) --target llama-server
 
 # ---- Stage 2: Runtime (mirrors aamsellem/buun-llama-cpp layout) ----
