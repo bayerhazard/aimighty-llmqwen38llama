@@ -14,6 +14,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 ARG PIN=283ba19eda82d18e93c44ced5efcf3da0494b83d
 
+ENV CUDA_HOME=/usr/local/cuda
+ENV PATH=/usr/local/cuda/bin:${PATH}
+
 WORKDIR /build
 RUN git clone https://github.com/spiritbuun/buun-llama-cpp.git && \
     cd buun-llama-cpp && git checkout ${PIN} && git rev-parse HEAD
@@ -37,8 +40,8 @@ RUN cmake -B build -G Ninja \
     -DGGML_F16C=ON \
     -DLLAMA_OPENSSL=ON \
     -DLLAMA_CURL=OFF \
-    -DCMAKE_EXE_LINKER_FLAGS="-Wl,-rpath-link,/usr/local/cuda/lib64/stubs" \
-    -DCMAKE_SHARED_LINKER_FLAGS="-Wl,-rpath-link,/usr/local/cuda/lib64/stubs" \
+    -DCMAKE_EXE_LINKER_FLAGS="-L/usr/local/cuda/lib64/stubs -Wl,-rpath-link,/usr/local/cuda/lib64/stubs" \
+    -DCMAKE_SHARED_LINKER_FLAGS="-L/usr/local/cuda/lib64/stubs -Wl,-rpath-link,/usr/local/cuda/lib64/stubs" \
     && cmake --build build --config Release -j$(nproc) --target llama-server
 
 # ---- Stage 2: Runtime (mirrors aamsellem/buun-llama-cpp layout) ----
