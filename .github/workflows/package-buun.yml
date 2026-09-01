@@ -38,30 +38,30 @@ jobs:
           FROM docker.io/aamsellem/buun-llama-cpp:87c351d2
           COPY buun-files/ /app-new/
           RUN mkdir -p /app && \
-              cp /app-new/libggml-base.so.0.19.0 /app/ && \
-              cp /app-new/libggml-cpu.so.0.19.0 /app/ && \
-              cp /app-new/libggml-cuda.so.0.19.0 /app/ && \
-              cp /app-new/libggml.so.0.19.0 /app/ && \
-              cp /app-new/libllama-common.so.0.0.1 /app/ && \
+              cp /app-new/libggml-base.so.0.22.0 /app/ && \
+              cp /app-new/libggml-cpu.so.0.22.0 /app/ && \
+              cp /app-new/libggml-cuda.so.0.22.0 /app/ && \
+              cp /app-new/libggml.so.0.22.0 /app/ && \
+              cp /app-new/libllama-common.so.0.3.0 /app/ && \
               cp /app-new/libllama-server-impl.so /app/ && \
-              cp /app-new/libllama.so.0.0.1 /app/ && \
-              cp /app-new/libmtmd.so.0.0.1 /app/ && \
+              cp /app-new/libllama.so.0.3.0 /app/ && \
+              cp /app-new/libmtmd.so.0.3.0 /app/ && \
               cp /app-new/llama-server-new /app/llama-server && \
               chmod +x /app/llama-server && \
-              ln -sf libggml-base.so.0.19.0 /app/libggml-base.so.0 && \
-              ln -sf libggml-base.so.0.19.0 /app/libggml-base.so && \
-              ln -sf libggml-cpu.so.0.19.0 /app/libggml-cpu.so.0 && \
-              ln -sf libggml-cpu.so.0.19.0 /app/libggml-cpu.so && \
-              ln -sf libggml-cuda.so.0.19.0 /app/libggml-cuda.so.0 && \
-              ln -sf libggml-cuda.so.0.19.0 /app/libggml-cuda.so && \
-              ln -sf libggml.so.0.19.0 /app/libggml.so.0 && \
-              ln -sf libggml.so.0.19.0 /app/libggml.so && \
-              ln -sf libllama-common.so.0.0.1 /app/libllama-common.so.0 && \
-              ln -sf libllama-common.so.0.0.1 /app/libllama-common.so && \
-              ln -sf libllama.so.0.0.1 /app/libllama.so.0 && \
-              ln -sf libllama.so.0.0.1 /app/libllama.so && \
-              ln -sf libmtmd.so.0.0.1 /app/libmtmd.so.0 && \
-              ln -sf libmtmd.so.0.0.1 /app/libmtmd.so && \
+              ln -sf libggml-base.so.0.22.0 /app/libggml-base.so.0 && \
+              ln -sf libggml-base.so.0.22.0 /app/libggml-base.so && \
+              ln -sf libggml-cpu.so.0.22.0 /app/libggml-cpu.so.0 && \
+              ln -sf libggml-cpu.so.0.22.0 /app/libggml-cpu.so && \
+              ln -sf libggml-cuda.so.0.22.0 /app/libggml-cuda.so.0 && \
+              ln -sf libggml-cuda.so.0.22.0 /app/libggml-cuda.so && \
+              ln -sf libggml.so.0.22.0 /app/libggml.so.0 && \
+              ln -sf libggml.so.0.22.0 /app/libggml.so && \
+              ln -sf libllama-common.so.0.3.0 /app/libllama-common.so.0 && \
+              ln -sf libllama-common.so.0.3.0 /app/libllama-common.so && \
+              ln -sf libllama.so.0.3.0 /app/libllama.so.0 && \
+              ln -sf libllama.so.0.3.0 /app/libllama.so && \
+              ln -sf libmtmd.so.0.3.0 /app/libmtmd.so.0 && \
+              ln -sf libmtmd.so.0.3.0 /app/libmtmd.so && \
               rm -rf /app-new && \
               echo "done"
           ENV LD_LIBRARY_PATH=/app
@@ -75,9 +75,9 @@ jobs:
           context: .
           file: ./Dockerfile.pkg
           push: true
-          tags: ghcr.io/bayerhazard/aimighty-llmqwen38llama:${{ inputs.image_tag }}
+          tags: ghcr.io/bayerhazard/buun-llama-cpp:${{ inputs.image_tag }}
 
       - name: Summary
         run: |
           echo "## Image pushed" >> "$GITHUB_STEP_SUMMARY"
-          echo "**ghcr.io/bayerhazard/aimighty-llmqwen38llama:${{ inputs.image_tag }}**" >> "$GITHUB_STEP_SUMMARY"
+          echo "**ghcr.io/bayerhazard/buun-llama-cpp:${{ inputs.image_tag }}**" >> "$GITHUB_STEP_SUMMARY"
