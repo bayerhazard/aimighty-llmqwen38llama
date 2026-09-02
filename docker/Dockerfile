@@ -17,6 +17,10 @@ ARG PIN=283ba19eda82d18e93c44ced5efcf3da0494b83d
 ENV CUDA_HOME=/usr/local/cuda
 ENV PATH=/usr/local/cuda/bin:${PATH}
 
+# libggml-cuda links against libcuda.so.1 (driver VMM API); only the stub
+# libcuda.so ships in the devel image -> provide the .so.1 soname via symlink
+RUN ln -sf /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
+
 WORKDIR /build
 RUN git clone https://github.com/spiritbuun/buun-llama-cpp.git && \
     cd buun-llama-cpp && git checkout ${PIN} && git rev-parse HEAD
