@@ -1,6 +1,6 @@
 apiVersion: v2
-appVersion: 26.9.1
+appVersion: 26.9.2
 description: Qwen3.8-27B chat via buun-llama-cpp (llama.cpp) — 200K context, vision, MTP speculation, turbo4 KV
 name: aimqwen38llama
 type: application
-version: 26.9.1
+version: 26.9.2

@@ -36,10 +36,10 @@ env:
   THREADS: "16"
   PARALLEL: "1"
   CACHE_REUSE: "256"
-  SPEC_TYPE: "draft-mtp"
-  DRAFT_MAX: "3"
-  DRAFT_MODEL_FILE: ""
-  DRAFT_MODEL_URL: ""
+  SPEC_TYPE: "draft-dflash"
+  DRAFT_MAX: "7"
+  DRAFT_MODEL_FILE: "Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
+  DRAFT_MODEL_URL: "https://huggingface.co/incoai/Qwen3.8-27B-DFlash2-GGUF/resolve/main/Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
 
 # Olares-injected environment variables (from OlaresManifest envs:).
 # Default present so standalone `helm template` renders without nil pointer;
