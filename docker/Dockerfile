@@ -1,5 +1,7 @@
 # llama-server (spiritbuun/buun-llama-cpp) for Olares One
-# Core Ultra 9 275HX (AVX-512, AMX) + RTX 5090 (sm_120 Blackwell)
+# Core Ultra 9 275HX (Arrow Lake: AVX2 + AVX-VNNI, KEIN AVX-512/AMX!) + RTX 5090 (sm_120 Blackwell)
+# ACHTUNG: GGML_NATIVE=OFF ist PFLICHT — sonst -march=native auf dem GHA-Runner
+# (oft Xeon mit AVX-512/AMX) -> SIGILL (exit 132) auf dem 275HX.
 # Builds master at pinned commit, pushes to ghcr.io/bayerhazard/buun-llama-cpp:<shortsha>
 
 # ---- Stage 1: Build ----
@@ -31,15 +33,10 @@ RUN cmake -B build -G Ninja \
     -DGGML_CUDA=ON \
     -DGGML_CUDA_FA=ON \
     -DCMAKE_CUDA_ARCHITECTURES=120 \
+    -DGGML_NATIVE=OFF \
     -DGGML_AVX=ON \
     -DGGML_AVX2=ON \
-    -DGGML_AVX512=ON \
-    -DGGML_AVX512_VBMI=ON \
-    -DGGML_AVX512_VNNI=ON \
-    -DGGML_AVX512_BF16=ON \
-    -DGGML_AMX_TILE=ON \
-    -DGGML_AMX_INT8=ON \
-    -DGGML_AMX_BF16=ON \
+    -DGGML_AVX_VNNI=ON \
     -DGGML_FMA=ON \
     -DGGML_F16C=ON \
     -DLLAMA_OPENSSL=ON \
