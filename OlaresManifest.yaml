@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.2'
+  version: '26.9.3'
   categories:
     - AI
     - Vision
@@ -26,7 +26,7 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.2'
+  versionName: '26.9.3'
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -36,15 +36,16 @@ spec:
     - 200K token context Turbo4 (4-bit Walsh-Hadamard rotated)
 
     Inference Engine:
-    - buun-llama-cpp (spiritbuun master HEAD, CUDA 13.1 sm_120 custom build)
-    - MTP (draft-mtp, --spec-draft-n-max 3)
-    - Parallel slots: 1, Batch: 2048/512, Reasoning: on, KV-cache reuse
+    - buun-llama-cpp (spiritbuun master 117300f7, CUDA 13.1 sm_120 custom build)
+    - DFlash2 speculative decoding (draft-dflash, Q4_K_M draft, --spec-draft-n-max 7)
+    - Parallel slots: 1, Batch: 2048/512, Reasoning: on (medium), KV-cache reuse
 
     Performance:
-    Space Invaders HTML: 100 t/s
-    Creative Writing: 65 t/s
+    Space Invaders HTML: 118 t/s
+    Creative Writing: 78 t/s
     OpenAI-compatible: /v1/chat/completions, /v1/models, /health
   upgradeDescription: |
+    26.9.3: Engine-Update buun-llama-cpp 117300f7 (571 Commits: Vision+DFlash-Speculation-Fixes, Turbo/FA-Tuning, Upstream 0.4.1) — Image ghcr.io/bayerhazard/buun-llama-cpp:117300f2; Build-Fix GGML_NATIVE=OFF (AVX2+AVX-VNNI, kein AVX-512/AMX) behebt SIGILL; gemessen +4% repetitiv / +2% Prosa vs 283ba19e, Tool-Calling 9/9, Needle 100%, Vision ok; Built for Olares 1.12.6.
     26.08.14: Unified engine image ghcr.io/bayerhazard/buun-llama-cpp:39d97a8 — llama-server binary now ships inside the image (no shared-disk build pin); removed redundant values; Built for Olares 1.12.6.
     26.08.13: --reasoning-budget 8192 (hartes Thinking-Cap, kein Ausufern) + budget-message; Antworten entkoppelt von max_tokens; Built for Olares 1.12.6.
     26.08.12: --reasoning-preserve (Reasoning bleibt im Multi-Turn-Verlauf erhalten) + GGUF Dynamic V3.0 (Unsloth Aug-19-Update, ~10% mehr Genauigkeit); Built for Olares 1.12.6.

@@ -4,8 +4,8 @@ workloads:
 
 image:
   repository: ghcr.io/bayerhazard/buun-llama-cpp
-  tag: 283ba19e
-  full: ghcr.io/bayerhazard/buun-llama-cpp:283ba19e
+  tag: 117300f2
+  full: ghcr.io/bayerhazard/buun-llama-cpp:117300f2
   pullPolicy: IfNotPresent
 
 nameOverride: ""
