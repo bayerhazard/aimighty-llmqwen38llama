@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.3'
+  version: '26.9.4'
   categories:
     - AI
     - Vision
@@ -26,7 +26,7 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.3'
+  versionName: '26.9.4'
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -44,15 +44,6 @@ spec:
     Space Invaders HTML: 118 t/s
     Creative Writing: 78 t/s
     OpenAI-compatible: /v1/chat/completions, /v1/models, /health
-  upgradeDescription: |
-    26.9.3: Engine-Update buun-llama-cpp 117300f7 (571 Commits: Vision+DFlash-Speculation-Fixes, Turbo/FA-Tuning, Upstream 0.4.1) — Image ghcr.io/bayerhazard/buun-llama-cpp:117300f2; Build-Fix GGML_NATIVE=OFF (AVX2+AVX-VNNI, kein AVX-512/AMX) behebt SIGILL; gemessen +4% repetitiv / +2% Prosa vs 283ba19e, Tool-Calling 9/9, Needle 100%, Vision ok; Built for Olares 1.12.6.
-    26.08.14: Unified engine image ghcr.io/bayerhazard/buun-llama-cpp:39d97a8 — llama-server binary now ships inside the image (no shared-disk build pin); removed redundant values; Built for Olares 1.12.6.
-    26.08.13: --reasoning-budget 8192 (hartes Thinking-Cap, kein Ausufern) + budget-message; Antworten entkoppelt von max_tokens; Built for Olares 1.12.6.
-    26.08.12: --reasoning-preserve (Reasoning bleibt im Multi-Turn-Verlauf erhalten) + GGUF Dynamic V3.0 (Unsloth Aug-19-Update, ~10% mehr Genauigkeit); Built for Olares 1.12.6.
-    26.08.11: Engine buun-llama-cpp 39d97a8 (MTP+mmproj swap-fit accounting — spart VRAM auf hybriden Qwen-Modellen) via shared build-output; benchmarks ≥ baseline, keine Regression; Built for Olares 1.12.6.
-    26.08.10: Fixed --chat-template-kwargs to valid JSON object ('{"reasoning_effort":"medium"}') — flat key=value crashed llama-server (json.parse_error); Built for Olares 1.12.6.
-    26.08.5: Reasoning effort medium (--chat-template-kwargs reasoning_effort=medium) for complete, faster answers; Built for Olares 1.12.6.
-    26.08.4: KV-cache reuse (--cache-reuse 256) for long-context divergence; Built for Olares 1.12.6.
   developer: Aimighty
   website: https://github.com/bayerhazard/aimighty-llmqwen38llama
   sourceCode: https://github.com/bayerhazard/aimighty-llmqwen38llama
