@@ -7,11 +7,11 @@ workloadReplicas:
 
 metadata:
   name: aimqwen38llama
-  icon: https://app.cdn.olares.com/appstore/llamacpp/icon2.png
+  icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.5'
+  version: '26.9.6'
   categories:
     - AI
     - Vision
@@ -21,12 +21,14 @@ entrances:
     port: 8000
     host: aimqwen38llama
     title: AIM Qwen3.8 27B
-    icon: https://app.cdn.olares.com/appstore/llamacpp/icon2.png
+    icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
     openMethod: window
     authLevel: internal
 
 spec:
-  versionName: '26.9.5'
+  versionName: '26.9.6'
+  upgradeDescription: |
+    Initial Release for AImighty Olares One
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
