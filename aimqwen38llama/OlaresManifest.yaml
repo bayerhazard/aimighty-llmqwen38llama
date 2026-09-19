@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.6'
+  version: '26.9.7'
   categories:
     - AI
     - Vision
@@ -26,9 +26,9 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.6'
+  versionName: '26.9.7'
   upgradeDescription: |
-    Initial Release for AImighty Olares One
+    v26.9.7: Engine-Update auf buun-llama-cpp 1d0f493c (DFlash2-Fused-Cycle: Noise-Row-Compute, Grouped-Conv-Fusion per Default) — Engine-Image und Drafter-Defaults (draft-dflash, n-max 7) jetzt im Chart fixiert, damit Reconciliation/Upgrade die App nicht mehr auf MTP zurücksetzen. Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -38,7 +38,7 @@ spec:
     - 200K token context Turbo4 (4-bit Walsh-Hadamard rotated)
 
     Inference Engine:
-    - buun-llama-cpp (spiritbuun master 117300f7, CUDA 13.1 sm_120 custom build)
+    - buun-llama-cpp (spiritbuun master 1d0f493c, CUDA 13.1 sm_120 custom build)
     - DFlash2 speculative decoding (draft-dflash, Q4_K_M draft, --spec-draft-n-max 7)
     - Parallel slots: 1, Batch: 2048/512, Reasoning: on (medium), KV-cache reuse
 
