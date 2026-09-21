@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.7'
+  version: '26.9.8'
   categories:
     - AI
     - Vision
@@ -26,9 +26,9 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.7'
+  versionName: '26.9.8'
   upgradeDescription: |
-    v26.9.7: Engine-Update auf buun-llama-cpp 1d0f493c (DFlash2-Fused-Cycle: Noise-Row-Compute, Grouped-Conv-Fusion per Default) — Engine-Image und Drafter-Defaults (draft-dflash, n-max 7) jetzt im Chart fixiert, damit Reconciliation/Upgrade die App nicht mehr auf MTP zurücksetzen. Built for Olares 1.12.6.
+    v26.9.8: Shared-Model-Pfad auf /olares/share/ai/llm-model umgestellt — die neue Olares-ComfyUI-App beansprucht /olares/share/ai/model und verschiebt dessen Inhalt; dieser Fix schützt die LLM-Modelle. Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 

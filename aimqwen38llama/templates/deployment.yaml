@@ -231,7 +231,7 @@ spec:
           type: DirectoryOrCreate
       - name: shared-models
         hostPath:
-          path: /olares/share/ai/model
+          path: /olares/share/ai/llm-model
           type: DirectoryOrCreate
       - name: envoy-config
         emptyDir: {}
