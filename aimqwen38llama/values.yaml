@@ -26,11 +26,11 @@ resources:
     nvidia.com/gpu: 1
 
 env:
-  CTX_SIZE: "200000"
-  TARGET_FILE: "Qwen3.8-27B-UD-Q4_K_XL.gguf"
-  TARGET_URL: "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/Qwen3.8-27B-UD-Q4_K_XL.gguf"
-  MMPROJ_FILE: "mmproj-F16.gguf"
-  MMPROJ_URL: "https://huggingface.co/unsloth/Qwen3.8-27B-GGUF/resolve/main/mmproj-F16.gguf"
+  CTX_SIZE: "125000"
+  TARGET_FILE: "RVN-Q4_K_M-mtp.gguf"
+  TARGET_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/RVN-Q4_K_M-mtp.gguf"
+  MMPROJ_FILE: "mmproj-0bserverx-Q8_0.gguf"
+  MMPROJ_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/mmproj-Qwen3.8-27B-Q8_0.gguf"
   KV_TYPE: "turbo4"
   MODEL_ALIAS: "qwen3.8-27b"
   THREADS: "16"

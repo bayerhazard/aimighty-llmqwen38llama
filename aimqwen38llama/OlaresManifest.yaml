@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.8'
+  version: '26.9.9'
   categories:
     - AI
     - Vision
@@ -26,16 +26,16 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.8'
+  versionName: '26.9.9'
   upgradeDescription: |
-    v26.9.8: Shared-Model-Pfad auf /olares/share/ai/llm-model umgestellt — die neue Olares-ComfyUI-App beansprucht /olares/share/ai/model und verschiebt dessen Inhalt; dieser Fix schützt die LLM-Modelle. Built for Olares 1.12.6.
+    v26.9.9: Uncensored-Modell (0bserverx RVN Heretic-Abliterated Qwen3.8-27B, Q4_K_M, KL~0.0085) ersetzt das Basismodell - 0/48 Refusals im AImighty-Test, +5% Decode (127/82 t/s), Needle 25/25, Tool 9/9, Recall@110k 4/4; Kontext auf 125K gesenkt (VRAM-Sicherheit). Modell-Pfade, Engine und Drafter im Chart fixiert. Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
     Model:
-    - unsloth/Qwen3.8-27B-GGUF (UD-Q4_K_XL, native Gated DeltaNet + Gated Attention, MTP)
-    - Vision: mmproj-F16.gguf on GPU
-    - 200K token context Turbo4 (4-bit Walsh-Hadamard rotated)
+    - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic-Abliteration, Q4_K_M, native MTP head)
+    - Vision: mmproj-Q8_0.gguf on GPU
+    - 125K token context Turbo4 (4-bit Walsh-Hadamard rotated)
 
     Inference Engine:
     - buun-llama-cpp (spiritbuun master 1d0f493c, CUDA 13.1 sm_120 custom build)
@@ -43,8 +43,8 @@ spec:
     - Parallel slots: 1, Batch: 2048/512, Reasoning: on (medium), KV-cache reuse
 
     Performance:
-    Space Invaders HTML: 118 t/s
-    Creative Writing: 78 t/s
+    Space Invaders HTML: 127 t/s
+    Creative Writing: 82 t/s
     OpenAI-compatible: /v1/chat/completions, /v1/models, /health
   developer: Aimighty
   website: https://github.com/bayerhazard/aimighty-llmqwen38llama

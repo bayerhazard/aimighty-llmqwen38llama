@@ -7,11 +7,11 @@ metadata:
     app: aimqwen38llama
     app.kubernetes.io/managed-by: Helm
 data:
-  CTX_SIZE: "{{ .Values.env.CTX_SIZE }}"
-  TARGET_FILE: "{{ .Values.env.TARGET_FILE }}"
-  TARGET_URL: "{{ .Values.env.TARGET_URL }}"
-  MMPROJ_FILE: "{{ .Values.env.MMPROJ_FILE }}"
-  MMPROJ_URL: "{{ .Values.env.MMPROJ_URL }}"
+  CTX_SIZE: "125000"
+  TARGET_FILE: "RVN-Q4_K_M-mtp.gguf"
+  TARGET_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/RVN-Q4_K_M-mtp.gguf"
+  MMPROJ_FILE: "mmproj-0bserverx-Q8_0.gguf"
+  MMPROJ_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/mmproj-Qwen3.8-27B-Q8_0.gguf"
   KV_TYPE: "{{ .Values.env.KV_TYPE }}"
   MODEL_ALIAS: "{{ .Values.env.MODEL_ALIAS }}"
   THREADS: "{{ .Values.env.THREADS }}"
