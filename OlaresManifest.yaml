@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.9'
+  version: '26.9.10'
   categories:
     - AI
     - Vision
@@ -26,16 +26,16 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.9'
+  versionName: '26.9.10'
   upgradeDescription: |
-    v26.9.9: Uncensored-Modell (0bserverx RVN Heretic-Abliterated Qwen3.8-27B, Q4_K_M, KL~0.0085) ersetzt das Basismodell - 0/48 Refusals im AImighty-Test, +5% Decode (127/82 t/s), Needle 25/25, Tool 9/9, Recall@110k 4/4; Kontext auf 125K gesenkt (VRAM-Sicherheit). Modell-Pfade, Engine und Drafter im Chart fixiert. Built for Olares 1.12.6.
+    v26.9.10: Kontext auf 150K erhoeht bei praeziserem K-Cache (K=q8_0, V=turbo4) - VRAM-Gate gemessen: Peak 22.788 MiB / 1.197 MiB frei unter 140K-Last, Decode unveraendert 127/86 t/s. Compute-Puffer auf batch 1024 / ubatch 256 gebunden; CTX/KV/Batch-Werte im Chart fixiert. Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
     Model:
     - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic-Abliteration, Q4_K_M, native MTP head)
     - Vision: mmproj-Q8_0.gguf on GPU
-    - 125K token context Turbo4 (4-bit Walsh-Hadamard rotated)
+    - 150K token context (K q8_0, V turbo4 - 4-bit Walsh-Hadamard rotated)
 
     Inference Engine:
     - buun-llama-cpp (spiritbuun master 1d0f493c, CUDA 13.1 sm_120 custom build)

@@ -26,16 +26,19 @@ resources:
     nvidia.com/gpu: 1
 
 env:
-  CTX_SIZE: "125000"
+  CTX_SIZE: "150000"
   TARGET_FILE: "RVN-Q4_K_M-mtp.gguf"
   TARGET_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/RVN-Q4_K_M-mtp.gguf"
   MMPROJ_FILE: "mmproj-0bserverx-Q8_0.gguf"
   MMPROJ_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/mmproj-Qwen3.8-27B-Q8_0.gguf"
   KV_TYPE: "turbo4"
+  KV_TYPE_K: "q8_0"
   MODEL_ALIAS: "qwen3.8-27b"
   THREADS: "16"
   PARALLEL: "1"
   CACHE_REUSE: "256"
+  BATCH_SIZE: "1024"
+  UBATCH_SIZE: "256"
   SPEC_TYPE: "draft-dflash"
   DRAFT_MAX: "7"
   DRAFT_MODEL_FILE: "Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
