@@ -4,8 +4,8 @@ workloads:
 
 image:
   repository: ghcr.io/bayerhazard/buun-llama-cpp
-  tag: 1d0f493c
-  full: ghcr.io/bayerhazard/buun-llama-cpp:1d0f493c
+  tag: a5c79ad9
+  full: ghcr.io/bayerhazard/buun-llama-cpp:a5c79ad9
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -37,6 +37,7 @@ env:
   THREADS: "16"
   PARALLEL: "1"
   CACHE_REUSE: "256"
+  RESUME_PATH: "/shared-models/llm-resume"
   BATCH_SIZE: "1024"
   UBATCH_SIZE: "256"
   SPEC_TYPE: "draft-dflash"

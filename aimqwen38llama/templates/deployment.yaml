@@ -60,7 +60,7 @@ spec:
             nvidia.com/gpu: "0"
       containers:
       - name: aimqwen38llama
-        image: "ghcr.io/bayerhazard/buun-llama-cpp:1d0f493c"
+        image: "ghcr.io/bayerhazard/buun-llama-cpp:a5c79ad9"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command:
           - /bin/bash
@@ -125,7 +125,8 @@ spec:
               --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 \
               --batch-size "${BATCH_SIZE:-1024}" --ubatch-size "${UBATCH_SIZE:-256}" \
               --spec-type "${SPEC_TYPE:-draft-mtp}" \
-              --spec-draft-n-max "${DRAFT_MAX:-3}"
+              --spec-draft-n-max "${DRAFT_MAX:-3}" \
+              --resume --resume-path "${RESUME_PATH:-/shared-models/llm-resume}"
         env:
         - name: HF_HOME
           value: /models/huggingface

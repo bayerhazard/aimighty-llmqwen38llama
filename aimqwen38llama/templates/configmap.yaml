@@ -20,6 +20,7 @@ data:
   THREADS: "{{ .Values.env.THREADS }}"
   PARALLEL: "{{ .Values.env.PARALLEL }}"
   CACHE_REUSE: "{{ .Values.env.CACHE_REUSE }}"
+  RESUME_PATH: "/shared-models/llm-resume"
   SPEC_TYPE: "draft-dflash"
   DRAFT_MAX: "7"
   DRAFT_MODEL_FILE: "Qwen3.8-27B-DFlash2-Q4_K_M.gguf"

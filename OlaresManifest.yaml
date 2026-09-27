@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.10'
+  version: '26.9.11'
   categories:
     - AI
     - Vision
@@ -26,9 +26,9 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.10'
+  versionName: '26.9.11'
   upgradeDescription: |
-    v26.9.10: Kontext auf 150K erhoeht bei praeziserem K-Cache (K=q8_0, V=turbo4) - VRAM-Gate gemessen: Peak 22.788 MiB / 1.197 MiB frei unter 140K-Last, Decode unveraendert 127/86 t/s. Compute-Puffer auf batch 1024 / ubatch 256 gebunden; CTX/KV/Batch-Werte im Chart fixiert. Built for Olares 1.12.6.
+    v26.9.11: Engine a5c79ad9 (103 Commits: MTP-Fix, Prefix-/VBR-Arbeit) + Warm-Restart-Resume: Gespraechs-KV wird beim Shutdown gespeichert und beim Start in ~1s restauriert (gemessen: 48k Kontext warm in 0.3s statt 47.9s kalt). A/B: Perf 127/84 t/s, Needle 25/25, Tool 9/9, Refusals 0/48, Recall@140k EXACT. VBR getestet (Perf-Paritaet, aber 0.5 GiB weniger Reserve) -> statisch K=q8_0/V=turbo4 bleibt. Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -38,8 +38,9 @@ spec:
     - 150K token context (K q8_0, V turbo4 - 4-bit Walsh-Hadamard rotated)
 
     Inference Engine:
-    - buun-llama-cpp (spiritbuun master 1d0f493c, CUDA 13.1 sm_120 custom build)
+    - buun-llama-cpp (spiritbuun master a5c79ad9, CUDA 13.1 sm_120 custom build)
     - DFlash2 speculative decoding (draft-dflash, Q4_K_M draft, --spec-draft-n-max 7)
+    - Warm-restart resume: conversation KV is saved at shutdown and restored at startup (--resume)
     - Parallel slots: 1, Batch: 2048/512, Reasoning: on (medium), KV-cache reuse
 
     Performance:
