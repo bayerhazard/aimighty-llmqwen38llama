@@ -126,7 +126,7 @@ spec:
               --batch-size "${BATCH_SIZE:-1024}" --ubatch-size "${UBATCH_SIZE:-256}" \
               --spec-type "${SPEC_TYPE:-draft-mtp}" \
               --spec-draft-n-max "${DRAFT_MAX:-3}" \
-              --resume --resume-path "${RESUME_PATH:-/shared-models/llm-resume}"
+              --resume --resume-no-host-cache --resume-path "${RESUME_PATH:-/shared-models/llm-resume}"
         env:
         - name: HF_HOME
           value: /models/huggingface
