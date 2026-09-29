@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.11'
+  version: '26.9.12'
   categories:
     - AI
     - Vision
@@ -26,9 +26,9 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.11'
+  versionName: '26.9.12'
   upgradeDescription: |
-    v26.9.11: Engine a5c79ad9 (103 Commits: MTP-Fix, Prefix-/VBR-Arbeit) + Warm-Restart-Resume: Gespraechs-KV wird beim Shutdown gespeichert und beim Start in ~1s restauriert (gemessen: 48k Kontext warm in 0.3s statt 47.9s kalt). A/B: Perf 127/84 t/s, Needle 25/25, Tool 9/9, Refusals 0/48, Recall@140k EXACT. VBR getestet (Perf-Paritaet, aber 0.5 GiB weniger Reserve) -> statisch K=q8_0/V=turbo4 bleibt. Built for Olares 1.12.6.
+    v26.9.12: Engine a5c79ad9 -> 03e5ad6c (42 Commits: Blackwell-CUDA-Tiles, Resume-Platform, MoE/VBR-Serie). Same-day A/B: Median space-invaders 125,5 -> 129,0 t/s und Prosa 82,6 -> 88,2 t/s, vor allem aber deutlich weniger Decode-Stalls (p10 82 -> 117 t/s); Needle 25/25, Tool 9/9, Recall@140k EXACT, Refusals 0/48, Warm-Restart-Resume verifiziert - uebernommen. (Die 35B-App bleibt bewusst auf 08826ad6, dort ist dieselbe Engine ~3-6% langsamer.) Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
@@ -38,7 +38,7 @@ spec:
     - 150K token context (K q8_0, V turbo4 - 4-bit Walsh-Hadamard rotated)
 
     Inference Engine:
-    - buun-llama-cpp (spiritbuun master a5c79ad9, CUDA 13.1 sm_120 custom build)
+    - buun-llama-cpp (spiritbuun master 03e5ad6c, CUDA 13.1 sm_120 custom build)
     - DFlash2 speculative decoding (draft-dflash, Q4_K_M draft, --spec-draft-n-max 7)
     - Warm-restart resume: conversation KV is saved at shutdown and restored at startup (--resume)
     - Parallel slots: 1, Batch: 2048/512, Reasoning: on (medium), KV-cache reuse
