@@ -7,7 +7,7 @@ metadata:
   description: "Qwen3.8-27B (RVN uncensored) via buun-llama-cpp + Olares Model Console (llm-init) - DFlash2 speculation, 150K context, vision, warm-restart resume."
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.20'
+  version: '26.9.21'
   categories:
     - AI
     - Vision
@@ -34,9 +34,9 @@ workloadReplicas:
   llminit: 1
 spec:
   onlyAdmin: true
-  versionName: '26.9.20'
+  versionName: '26.9.21'
   upgradeDescription: |
-    v26.9.20: Model Console rollout (llm-init v1.3.5, OpenAI API on port 8090, shared appCommon HF cache) plus a manifest fix (supportArch arm64 restored for the nvidia-gb10 accelerator mode). Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume. The client entrance keeps its name and host, so existing URLs and custom routes stay valid. Built for Olares 1.12.7.
+    v26.9.21: Model Console rollout (llm-init v1.3.5, OpenAI API on port 8090, shared appCommon HF cache). Manifest aligned to the v3 validator and the working AIM Qwen3.8 35B app: flat resource envelope with requiredGpu:1 and an exclusive nvidia.com/gpu binding (no HAMi nvidia.com/gpumem, which breaks stop/suspend on Olares 1.12.7), supportArch amd64+arm64. Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume. Existing entrance URL and custom route stay valid. Built for Olares 1.12.7.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One - now served through the Olares Model Console.
 
@@ -70,28 +70,18 @@ spec:
     - text: Apache-2.0
       url: https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF
 
-  accelerator:
-    #   nvidia       — discrete GPU; requiredGpu -> nvidia.com/gpu (exclusive)
-    #   nvidia-gb10  — DGX Spark unified memory; same env -> pod memory
-    - mode: nvidia
-      limitedCpu: "15360m"
-      requiredCpu: "1100m"
-      requiredDisk: 50Mi
-      limitedDisk: 500Gi
-      # Engine MEMORY_REQUEST 21Gi + llm-init <= requiredMemory 23Gi; MEMORY_LIMIT 30Gi + llm-init 2Gi <= limitedMemory 32Gi
-      limitedMemory: "32Gi"
-      requiredMemory: "23Gi"
-    - mode: nvidia-gb10
-      limitedCpu: "15360m"
-      requiredCpu: "1100m"
-      requiredDisk: 50Mi
-      limitedDisk: 500Gi
-      limitedMemory: "48Gi"
-      requiredMemory: "32Gi"
-
+  # Exclusive-GPU app (same flat envelope as AIM Qwen3.8 35B). No accelerator[]
+  # block: the v3 validator requires a *complete* requiredGpu/limitedGpu
+  # envelope there, and the flat form is what the working 35B app uses.
   supportArch:
     - amd64
     - arm64
+  requiredCpu: "4"
+  limitedCpu: "16"
+  requiredMemory: "23Gi"
+  limitedMemory: "32Gi"
+  requiredDisk: 50Mi
+  limitedDisk: 500Gi
   requiredGpu: 1
 permission:
   appData: true
