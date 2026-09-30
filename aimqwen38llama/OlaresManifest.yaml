@@ -1,79 +1,218 @@
 olaresManifest.version: '0.12.0'
 olaresManifest.type: app
 apiVersion: 'v3'
-
-workloadReplicas:
-  aimqwen38llama: 1
-
 metadata:
   name: aimqwen38llama
   icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
-  description: Qwen3.8-27B Vision via buun-llama
+  description: "Qwen3.8-27B (RVN uncensored) via buun-llama-cpp + Olares Model Console (llm-init) - DFlash2 speculation, 150K context, vision, warm-restart resume."
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.14'
+  version: '26.9.15'
   categories:
     - AI
     - Vision
-
+sharedEntrances:
+  - name: aimqwen38llama
+    host: sharedentrances-api
+    port: 0
+    title: AIM Qwen3.8 27B
+    invisible: true
+    authLevel: internal
+    icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
 entrances:
   - name: aimqwen38llama
-    port: 8000
+    port: 8090
     host: aimqwen38llama
     title: AIM Qwen3.8 27B
     icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
     openMethod: window
     authLevel: internal
-
+#   aimqwen38llama — engine Deployment (== appid / Release.Name)
+#   llminit                  — llm-init / entrance Deployment
+workloadReplicas:
+  aimqwen38llama: 1
+  llminit: 1
 spec:
-  versionName: '26.9.14'
+  onlyAdmin: true
+  versionName: '26.9.15'
   upgradeDescription: |
-    v26.9.14: Engine ab22bc53 (llama.cpp-Upstream-Merge + Fork-Sync, 308 Commits): CUDA-FWHT fuer F16 (Turbo-WHT-KV), CUDA RMS_NORM+SCALE-Fusion, CUB-argsort-Fix (Sampling), AVX2-Q4_K/Q6_K-CPU-Pfad, DFlash/Turbo-Enum-Sync. A/B (B-Durchlauf, Fremd-Traffic-rauschbehaftet): Funktionsparitaet auf allen Achsen (Needle 25/25, Tool 9/9, Recall@140k EXACT, Refusals 0/48, Agentic 13 Runden, Resume 0,2s nach Neustart, Peak 22.840 MiB / 1.145 MiB frei) -> uebernommen. Built for Olares 1.12.6.
+    v26.9.15: Model Console rollout. Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume - but the model is now managed by the Olares Model Console (beclab/llm-init v1.3.5): it downloads the GGUF files into the shared appCommon HF cache, publishes the model card, serves the console UI and proxies the OpenAI API on port 8090. That makes the app discoverable by Router and keeps model/engine settings editable from the console. The client entrance keeps its name and host, so existing URLs and custom routes stay valid. Built for Olares 1.12.7.
   fullDescription: |
-    AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
+    AImighty flagship stack for Qwen3.8-27B, the dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One - now served through the Olares Model Console.
 
-    Model:
-    - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic-Abliteration, Q4_K_M, native MTP head)
-    - Vision: mmproj-Q8_0.gguf on GPU
+    **Model**
+    - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic abliteration, Q4_K_M, native MTP head)
+    - Vision projector (mmproj Q8_0) and DFlash2 draft, fetched into the shared HF cache
     - 150K token context (K q8_0, V turbo4 - 4-bit Walsh-Hadamard rotated)
 
-    Inference Engine:
-    - buun-llama-cpp (spiritbuun master 03e5ad6c, CUDA 13.1 sm_120 custom build)
+    **Model Console**
+    - beclab/llm-init v1.3.5 downloads the weights into the shared appCommon HF cache, publishes the model card on /api/model-spec, serves the console UI and the OpenAI-compatible API on port 8090, and reverse-proxies the engine on llamacpp:8081.
+
+    **Inference Engine**
+    - buun-llama-cpp (spiritbuun master ab22bc53, CUDA 13.1 sm_120 custom build)
     - DFlash2 speculative decoding (draft-dflash, Q4_K_M draft, --spec-draft-n-max 7)
     - Warm-restart resume: conversation KV is saved at shutdown and restored at startup (--resume)
-    - Parallel slots: 1, Batch: 2048/512, Reasoning: on (medium), KV-cache reuse
+    - Parallel slots: 1, Batch: 1024/256, Reasoning: medium (8192 budget), cache-reuse 256
 
-    Performance:
-    Space Invaders HTML: 127 t/s
-    Creative Writing: 82 t/s
-    OpenAI-compatible: /v1/chat/completions, /v1/models, /health
+    **API**
+    OpenAI-compatible: /v1/chat/completions, /v1/models, /health (port 8090).
+
+    **Resource Usage**
+    ~22 GiB VRAM (23Gi memory slice), 24-40 GiB RAM, ~19 GB model cache in the shared appCommon HF cache.
   developer: Aimighty
   website: https://github.com/bayerhazard/aimighty-llmqwen38llama
   sourceCode: https://github.com/bayerhazard/aimighty-llmqwen38llama
-  requiredCpu: "4"
-  limitedCpu: "16"
-  requiredMemory: 24Gi
-  limitedMemory: 40Gi
-  requiredDisk: 25Gi
-  limitedDisk: 50Gi
-  requiredGpu: 1
+  submitter: Aimighty
+  locale:
+    - en-US
+    - zh-CN
+  license:
+    - text: Apache-2.0
+      url: https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF
+
+  accelerator:
+    #   nvidia       — discrete GPU; LLAMACPP_REQUIRED_GPU_MEMORY -> gpumem
+    #   nvidia-gb10  — DGX Spark unified memory; same env -> pod memory
+    - mode: nvidia
+      limitedCpu: "15360m"
+      requiredCpu: "1100m"
+      requiredDisk: 50Mi
+      limitedDisk: 500Gi
+      # Engine MEMORY_REQUEST 21Gi + llm-init <= requiredMemory 23Gi; MEMORY_LIMIT 30Gi + llm-init 2Gi <= limitedMemory 32Gi
+      limitedMemory: "32Gi"
+      requiredMemory: "23Gi"
+      requiredGPUMemory: "23Gi"
+      limitedGPUMemory: "23Gi"
+    - mode: nvidia-gb10
+      limitedCpu: "15360m"
+      requiredCpu: "1100m"
+      requiredDisk: 50Mi
+      limitedDisk: 500Gi
+      limitedMemory: "48Gi"
+      requiredMemory: "32Gi"
+
   supportArch:
     - amd64
-
 permission:
   appData: true
-
+  appCommon: true
+options:
+  apiTimeout: 0
+  LLMGatewaySupported: true
+  allowMultipleInstall: false
+  shared: true
+  templateOnly: false
+  dependencies:
+    - name: olares
+      version: '>=1.12.7-0'
+      type: system
 envs:
+  # Model is preset for this app; these values are fixed and not user-editable.
+  - envName: MODEL_SOURCE
+    required: true
+    type: string
+    editable: false
+    applyOnChange: false
+    default: "hf://0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF --include RVN-Q4_K_M-mtp.gguf,hf://0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF --include mmproj-Qwen3.8-27B-Q8_0.gguf,hf://incoai/Qwen3.8-27B-DFlash2-GGUF --include Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
+    description:  "Example: hf://unsloth/Qwen3-0.6B-GGUF --include Qwen3-0.6B-Q4_K_M.gguf. The source to download your model. For models with split files, only include the first part; for vision-language models, add the projector with a comma, like `hf://<repo> --include model.gguf,hf://<repo> --include mmproj-F16.gguf`."
+    regex: "^hf://"
+  - envName: MODEL_NAME
+    required: true
+    type: string
+    editable: false
+    applyOnChange: false
+    default: "0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF:Q4_K_M"
+    description:  "Example: unsloth/Qwen3-0.6B-GGUF:Q4_K_M. The name of your model in `owner/repo:quant` format"
+  - envName: MODEL_MODE
+    required: true
+    type: string
+    editable: false
+    applyOnChange: false
+    default: "chat"
+    options:
+    - title: Chat
+      value: chat
+    - title: Embedding
+      value: embedding
+  - envName: MODEL_SUPPORTS
+    required: true
+    type: string
+    editable: false
+    applyOnChange: false
+    default: "thinking,tools,vision"
+    multiSelect: true
+    splitter: ","
+    options:
+    - title: Vision
+      value: vision
+    - title: Tools
+      value: tools
+    - title: Thinking
+      value: thinking
+    - title: None
+      value: none
+    description:  "The model capabilities. Pick what your model supports, if no extra capabilities, pick None."
+  - envName: ENGINE_ARGS
+    required: true
+    default: '-hf-file RVN-Q4_K_M-mtp.gguf --mmproj mmproj-Qwen3.8-27B-Q8_0.gguf --spec-draft-hf incoai/Qwen3.8-27B-DFlash2-GGUF:Q4_K_M --spec-type draft-dflash --spec-draft-n-max 7 --cache-type-k q8_0 --cache-type-v turbo4 --ctx-size 150000 --parallel 1 --batch-size 1024 --ubatch-size 256 -ngl all --flash-attn on --jinja --reasoning-preserve --chat-template-kwargs {"reasoning_effort":"medium"} --reasoning-budget 8192 --reasoning-budget-message Stop-reasoning-and-answer-now. --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 --resume --resume-no-host-cache --resume-path /run/llm-init/resume'
+    type: string
+    editable: true
+    applyOnChange: true
+    description:  "Example: -c 8192 -ngl all -fa on. Extra llama.cpp options, to fully use GPU, add `-ngl all`. You can also use values like `LLAMA_ARG_*=val`."
+  - envName: LOG_LEVEL
+    required: false
+    type: string
+    editable: true
+    applyOnChange: true
+    default: "info"
+    options:
+    - title: Debug
+      value: debug
+    - title: Info
+      value: info
+    - title: Warn
+      value: warn
+    - title: Error
+      value: error
+  - envName: HF_ENDPOINT
+    required: false
+    applyOnChange: true
+    valueFrom:
+      envName: OLARES_SYSTEM_HUGGINGFACE_SERVICE
   - envName: HF_TOKEN
     required: false
     applyOnChange: true
     valueFrom:
-      envName: OLARES_USER_HUGGINGFACE_TOKEN
-
-options:
-  apiTimeout: 3600
-  allowMultipleInstall: false
-  dependencies:
-    - name: olares
-      version: '>=1.12.6-0'
-      type: system
+      envName: OLARES_SYSTEM_HUGGINGFACE_TOKEN
+  - envName: LLAMACPP_CPU_REQUEST
+    required: true
+    default: "200m"
+    type: string
+    editable: false
+    applyOnChange: false
+  - envName: LLAMACPP_MEMORY_REQUEST
+    required: true
+    default: "21Gi"
+    type: string
+    editable: false
+    applyOnChange: false
+  - envName: LLAMACPP_CPU_LIMIT
+    required: true
+    default: "6"
+    type: string
+    editable: false
+    applyOnChange: false
+  - envName: LLAMACPP_MEMORY_LIMIT
+    required: true
+    default: "30Gi"
+    type: string
+    editable: false
+    applyOnChange: false
+  - envName: LLAMACPP_REQUIRED_GPU_MEMORY
+    required: true
+    type: string
+    editable: false
+    applyOnChange: false
+    default: "23Gi"
+    description:  "Example: `8Gi`, `8192`, or `8192Mi`. GPU memory required for the model. On NVIDIA this sets `nvidia.com/gpumem` in MiB. On Spark it sets pod memory."
+    regex: "^[0-9]+(Gi|Mi)?$"

@@ -1,80 +1,9 @@
+# Per-workload replica counts (keys match Deployment metadata.name and
+# workloadReplicas in OlaresManifest).
+#   aimqwen38llama — engine Deployment (== appid / Release.Name)
+#   llminit           — llm-init / entrance Deployment
 workloads:
+  llminit:
+    replicaCount: 1
   aimqwen38llama:
     replicaCount: 1
-
-image:
-  repository: ghcr.io/bayerhazard/buun-llama-cpp
-  tag: ab22bc53
-  full: ghcr.io/bayerhazard/buun-llama-cpp:ab22bc53
-  pullPolicy: IfNotPresent
-
-nameOverride: ""
-fullnameOverride: aimqwen38llama
-
-service:
-  type: ClusterIP
-  port: 8000
-
-resources:
-  limits:
-    cpu: 16
-    memory: 40Gi
-    nvidia.com/gpu: 1
-  requests:
-    cpu: 4
-    memory: 24Gi
-    nvidia.com/gpu: 1
-
-env:
-  CTX_SIZE: "150000"
-  TARGET_FILE: "RVN-Q4_K_M-mtp.gguf"
-  TARGET_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/RVN-Q4_K_M-mtp.gguf"
-  MMPROJ_FILE: "mmproj-0bserverx-Q8_0.gguf"
-  MMPROJ_URL: "https://huggingface.co/0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored-GGUF/resolve/main/mmproj-Qwen3.8-27B-Q8_0.gguf"
-  KV_TYPE: "turbo4"
-  KV_TYPE_K: "q8_0"
-  MODEL_ALIAS: "qwen3.8-27b"
-  THREADS: "16"
-  PARALLEL: "1"
-  CACHE_REUSE: "256"
-  RESUME_PATH: "/shared-models/llm-resume"
-  BATCH_SIZE: "1024"
-  UBATCH_SIZE: "256"
-  SPEC_TYPE: "draft-dflash"
-  DRAFT_MAX: "7"
-  DRAFT_MODEL_FILE: "Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
-  DRAFT_MODEL_URL: "https://huggingface.co/incoai/Qwen3.8-27B-DFlash2-GGUF/resolve/main/Qwen3.8-27B-DFlash2-Q4_K_M.gguf"
-
-# Olares-injected environment variables (from OlaresManifest envs:).
-# Default present so standalone `helm template` renders without nil pointer;
-# Olares overrides this at install time.
-olaresEnv:
-  HF_TOKEN: ""
-
-nodeSelector: {}
-tolerations: []
-affinity: {}
-
-persistence:
-  models:
-    enabled: true
-    size: 50Gi
-  shared:
-    enabled: true
-    size: 200Gi
-
-probes:
-  startup:
-    path: /health
-    port: 8000
-    failureThreshold: 720
-    periodSeconds: 30
-    initialDelaySeconds: 60
-    timeoutSeconds: 10
-  liveness:
-    path: /health
-    port: 8000
-    failureThreshold: 5
-    periodSeconds: 30
-    initialDelaySeconds: 600
-    timeoutSeconds: 10

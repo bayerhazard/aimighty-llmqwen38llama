@@ -1,0 +1,27 @@
+metadata:
+  description: "使用 buun-llama-cpp + Olares Model Console（llm-init）运行 Qwen3.8-27B（RVN 无审查版）。"
+  title: AIM Qwen3.8 27B
+
+spec:
+  fullDescription: |
+    AImighty 旗舰 Qwen3.8-27B 栈：面向 Olares One 上的编码、视觉与长程 Agent 工作流优化的稠密混合注意力视觉语言模型，现由 Olares Model Console 托管。
+
+    **模型**
+    - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored（RVN：ARA + Heretic 消融，Q4_K_M，原生 MTP 头）
+    - 视觉投影（mmproj Q8_0）与 DFlash2 草稿模型，下载至共享 HF 缓存
+    - 150K token 上下文（K q8_0，V turbo4 - 4 位 Walsh-Hadamard 旋转量化）
+
+    **Model Console**
+    - beclab/llm-init v1.3.5 将权重下载到共享 appCommon HF 缓存，在 /api/model-spec 发布模型卡片，在 8090 端口提供控制台界面与 OpenAI 兼容 API，并反向代理到 llamacpp:8081 引擎。
+
+    **推理引擎**
+    - buun-llama-cpp（spiritbuun master ab22bc53，CUDA 13.1 sm_120 定制构建）
+    - DFlash2 投机解码（draft-dflash，Q4_K_M 草稿，--spec-draft-n-max 7）
+    - 热重启续跑：会话 KV 在关闭时保存、启动时恢复（--resume）
+    - 并行槽位：1，批处理：1024/256，推理：medium（8192 预算），cache-reuse 256
+
+    **API**
+    OpenAI 兼容：/v1/chat/completions、/v1/models、/health（8090 端口）。
+
+    **资源占用**
+    约 22 GiB 显存（23Gi 显存切片），24-40 GiB 内存，共享 appCommon HF 缓存中约 19 GB 模型缓存。
