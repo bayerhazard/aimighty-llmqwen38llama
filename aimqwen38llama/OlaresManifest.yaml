@@ -7,7 +7,7 @@ metadata:
   description: "Qwen3.8-27B (RVN uncensored) via buun-llama-cpp + Olares Model Console (llm-init) - DFlash2 speculation, 150K context, vision, warm-restart resume."
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.16'
+  version: '26.9.17'
   categories:
     - AI
     - Vision
@@ -34,9 +34,9 @@ workloadReplicas:
   llminit: 1
 spec:
   onlyAdmin: true
-  versionName: '26.9.16'
+  versionName: '26.9.17'
   upgradeDescription: |
-    v26.9.16: Model Console rollout (llm-init v1.3.5, OpenAI API on port 8090, shared appCommon HF cache) plus a manifest fix (supportArch arm64 restored for the nvidia-gb10 accelerator mode). Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume. The client entrance keeps its name and host, so existing URLs and custom routes stay valid. Built for Olares 1.12.7.
+    v26.9.17: Model Console rollout (llm-init v1.3.5, OpenAI API on port 8090, shared appCommon HF cache) plus a manifest fix (supportArch arm64 restored for the nvidia-gb10 accelerator mode). Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume. The client entrance keeps its name and host, so existing URLs and custom routes stay valid. Built for Olares 1.12.7.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One - now served through the Olares Model Console.
 

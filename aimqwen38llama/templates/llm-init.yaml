@@ -67,7 +67,7 @@ metadata:
   labels:
     io.kompose.service: llm-init
 spec:
-  replicas: {{ .Values.workloads.llminit.replicaCount }}
+  replicas: {{ (((.Values.workloads | default dict).llminit | default dict).replicaCount) | default 1 }}
   selector:
     matchLabels:
       io.kompose.service: llm-init
