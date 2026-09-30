@@ -60,7 +60,7 @@ spec:
             nvidia.com/gpu: "0"
       containers:
       - name: aimqwen38llama
-        image: "ghcr.io/bayerhazard/buun-llama-cpp:03e5ad6c"
+        image: "ghcr.io/bayerhazard/buun-llama-cpp:ab22bc53"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         command:
           - /bin/bash

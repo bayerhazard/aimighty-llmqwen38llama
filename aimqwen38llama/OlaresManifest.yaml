@@ -11,7 +11,7 @@ metadata:
   description: Qwen3.8-27B Vision via buun-llama
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.13'
+  version: '26.9.14'
   categories:
     - AI
     - Vision
@@ -26,9 +26,9 @@ entrances:
     authLevel: internal
 
 spec:
-  versionName: '26.9.13'
+  versionName: '26.9.14'
   upgradeDescription: |
-    v26.9.13: --resume-no-host-cache aktiviert - der Resume-Store haelt nur noch den Slot-Zustand (keine Host-Prompt-Cache-Kopien): Startup-Install 0,96s statt 3,9-10,4s, deutlich weniger JuiceFS-I/O (Store waechst nur noch langsam). Warm-Restart unveraendert (48k nach Neustart 0,2s). VBR (neu getestet, entry f16/floor t2/4G): Perf & Recall paritaetisch, aber Peak 23.252 MiB / 733 MiB frei gegenueber 22.788 / 1.197 statisch -> statisch K=q8_0/V=turbo4 bleibt. Built for Olares 1.12.6.
+    v26.9.14: Engine ab22bc53 (llama.cpp-Upstream-Merge + Fork-Sync, 308 Commits): CUDA-FWHT fuer F16 (Turbo-WHT-KV), CUDA RMS_NORM+SCALE-Fusion, CUB-argsort-Fix (Sampling), AVX2-Q4_K/Q6_K-CPU-Pfad, DFlash/Turbo-Enum-Sync. A/B (B-Durchlauf, Fremd-Traffic-rauschbehaftet): Funktionsparitaet auf allen Achsen (Needle 25/25, Tool 9/9, Recall@140k EXACT, Refusals 0/48, Agentic 13 Runden, Resume 0,2s nach Neustart, Peak 22.840 MiB / 1.145 MiB frei) -> uebernommen. Built for Olares 1.12.6.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the latest dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One.
 
