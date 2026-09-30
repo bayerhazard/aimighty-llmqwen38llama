@@ -1,0 +1,166 @@
+[
+  {
+    "Tag": "",
+    "Created": "2026-08-03T09:41:07.080937308Z",
+    "DockerVersion": "",
+    "Labels": {
+      "org.opencontainers.image.created": "2026-08-03T09:39:27Z",
+      "org.opencontainers.image.description": "Unified model download and OpenAI-compat sidecar for LLM inference engines",
+      "org.opencontainers.image.documentation": "https://github.com/llm-init/llm-init/blob/main/README.md",
+      "org.opencontainers.image.licenses": "MIT",
+      "org.opencontainers.image.revision": "336b770",
+      "org.opencontainers.image.source": "https://github.com/llm-init/llm-init",
+      "org.opencontainers.image.title": "llm-init",
+      "org.opencontainers.image.url": "https://github.com/llm-init/llm-init",
+      "org.opencontainers.image.version": "v1.3.5"
+    },
+    "Architecture": "amd64",
+    "Variant": "",
+    "Os": "linux",
+    "Layers": [
+      "sha256:5b4d6ff92fc4e14e911b7753c954fac965d48c40fe1075758d284148ccace970",
+      "sha256:4a9dde5cdde190bfa0a3ab17863a083e66ea9636b157638c315357dfa476ba76",
+      "sha256:e113665b194b20ba7e9093ef6a1a38edbaebbfb983c00e379a45a142a95a86ef",
+      "sha256:07342fe545e640a2c4960e97ffe33a301cd8e61e0c4d4307d7ac66b6b8a9eb2d",
+      "sha256:f3aae961969606ac80bd30d23b3f29475f7378f9a87f0b3bcf981db33e748ac7",
+      "sha256:0e0904f476e748641a6bef5036fcb9ca6975c8168309b416c41ca6480d37c63d",
+      "sha256:76bc3b2e028df778b5b68b1e132f5d87c50b3b27062bba2f81156a725455af04"
+    ],
+    "LayersData": [
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:5b4d6ff92fc4e14e911b7753c954fac965d48c40fe1075758d284148ccace970",
+        "Size": 29779926,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:4a9dde5cdde190bfa0a3ab17863a083e66ea9636b157638c315357dfa476ba76",
+        "Size": 1293300,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:e113665b194b20ba7e9093ef6a1a38edbaebbfb983c00e379a45a142a95a86ef",
+        "Size": 12113311,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:07342fe545e640a2c4960e97ffe33a301cd8e61e0c4d4307d7ac66b6b8a9eb2d",
+        "Size": 250,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:f3aae961969606ac80bd30d23b3f29475f7378f9a87f0b3bcf981db33e748ac7",
+        "Size": 12897444,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:0e0904f476e748641a6bef5036fcb9ca6975c8168309b416c41ca6480d37c63d",
+        "Size": 4952542,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:76bc3b2e028df778b5b68b1e132f5d87c50b3b27062bba2f81156a725455af04",
+        "Size": 1303,
+        "Annotations": null
+      }
+    ],
+    "Env": [
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "LANG=C.UTF-8",
+      "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+      "PYTHON_VERSION=3.12.13",
+      "PYTHON_SHA256=c08bc65a81971c1dd5783182826503369466c7e67374d1646519adf05207b684",
+      "HOME=/home/llminit",
+      "HF_HUB_CACHE=/cache/hf/hub"
+    ],
+    "Author": ""
+  },
+  {
+    "Tag": "",
+    "Created": "2026-08-03T09:41:59.503738481Z",
+    "DockerVersion": "",
+    "Labels": {
+      "org.opencontainers.image.created": "2026-08-03T09:39:27Z",
+      "org.opencontainers.image.description": "Unified model download and OpenAI-compat sidecar for LLM inference engines",
+      "org.opencontainers.image.documentation": "https://github.com/llm-init/llm-init/blob/main/README.md",
+      "org.opencontainers.image.licenses": "MIT",
+      "org.opencontainers.image.revision": "336b770",
+      "org.opencontainers.image.source": "https://github.com/llm-init/llm-init",
+      "org.opencontainers.image.title": "llm-init",
+      "org.opencontainers.image.url": "https://github.com/llm-init/llm-init",
+      "org.opencontainers.image.version": "v1.3.5"
+    },
+    "Architecture": "arm64",
+    "Variant": "",
+    "Os": "linux",
+    "Layers": [
+      "sha256:cda3d70ae7d7c3d0b3b57a99a2085f9d93e919a846913dc6517a420b348c123d",
+      "sha256:c6197f0005f45d3d6ce0fe015046a14edfe5d5b5aa231b273b73e4231e7a0151",
+      "sha256:714418592de0993eea6b4ab47261e028ca8f848246a78374d0f2bc576b6fde2e",
+      "sha256:057086c2c0d31d0923c7beff0bc95416b04ff21a913f864fad49b51f5c87faf1",
+      "sha256:a2cb9c7d3c594c41937787fa67c50763751ecd4afe4a1c8c0f128be4815ae981",
+      "sha256:f96930dcf5e51184224fc3f0fb601acf42b5049cd6ec10c7b4955821df17bf5e",
+      "sha256:2c6a085be608e6a27572ff255e4e6830cb8d6d50b0ff824aec281d9a693575c1"
+    ],
+    "LayersData": [
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:cda3d70ae7d7c3d0b3b57a99a2085f9d93e919a846913dc6517a420b348c123d",
+        "Size": 30141919,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:c6197f0005f45d3d6ce0fe015046a14edfe5d5b5aa231b273b73e4231e7a0151",
+        "Size": 1274138,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:714418592de0993eea6b4ab47261e028ca8f848246a78374d0f2bc576b6fde2e",
+        "Size": 12044392,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:057086c2c0d31d0923c7beff0bc95416b04ff21a913f864fad49b51f5c87faf1",
+        "Size": 250,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:a2cb9c7d3c594c41937787fa67c50763751ecd4afe4a1c8c0f128be4815ae981",
+        "Size": 12670988,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:f96930dcf5e51184224fc3f0fb601acf42b5049cd6ec10c7b4955821df17bf5e",
+        "Size": 4499016,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.oci.image.layer.v1.tar+gzip",
+        "Digest": "sha256:2c6a085be608e6a27572ff255e4e6830cb8d6d50b0ff824aec281d9a693575c1",
+        "Size": 1306,
+        "Annotations": null
+      }
+    ],
+    "Env": [
+      "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "LANG=C.UTF-8",
+      "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+      "PYTHON_VERSION=3.12.13",
+      "PYTHON_SHA256=c08bc65a81971c1dd5783182826503369466c7e67374d1646519adf05207b684",
+      "HOME=/home/llminit",
+      "HF_HUB_CACHE=/cache/hf/hub"
+    ],
+    "Author": ""
+  }
+]

@@ -1,0 +1,280 @@
+[
+  {
+    "Tag": "",
+    "Created": "2026-08-17T06:00:48.355240009Z",
+    "DockerVersion": "",
+    "Labels": {
+      "maintainer": "NVIDIA CORPORATION \u003ccudatools@nvidia.com\u003e",
+      "org.opencontainers.image.created": "2026-08-17T04:29:21Z",
+      "org.opencontainers.image.description": "LLM inference in C/C++",
+      "org.opencontainers.image.ref.name": "ubuntu",
+      "org.opencontainers.image.revision": "4df29be4f4c3673f428170fda944a5b19f743bb8",
+      "org.opencontainers.image.source": "https://github.com/ggml-org/llama.cpp",
+      "org.opencontainers.image.title": "llama.cpp",
+      "org.opencontainers.image.url": "https://github.com/ggml-org/llama.cpp",
+      "org.opencontainers.image.version": "b10454"
+    },
+    "Architecture": "amd64",
+    "Variant": "",
+    "Os": "linux",
+    "Layers": [
+      "sha256:5a7813e071bfadf18aaa6ca8318be4824a9b6297b3240f2cc84c1db6f4113040",
+      "sha256:a102f36d092c0e9e0bef8c97854f606af9156aa36ab408e6fa4b88e27124a7e6",
+      "sha256:05ec76e31584ec109785cc7045bd88df0240411233c2fcdad66b621c662034c0",
+      "sha256:398182656c471d6ecca3c2d6d30e97193b40ffc8028a94515093960322f3d64e",
+      "sha256:73389fbd088f5ed5d9fd258baced59de092978b4f483920ea6d074522a105119",
+      "sha256:cbb9175a9bc5f6553f8c0c5025ea9521898b8a3956ee24798dc35c24c6185053",
+      "sha256:3d6ab8c799cda2f4c6a6277b0e24dd2231c5de83b0316968b7cce81156bb8be0",
+      "sha256:7209097bfb98d6f8b422984480f1fddead5ea62f8900ff6b6548e060b71aca76",
+      "sha256:545a3ada5b6bc612a11c13a659775d67eeda5a61615e7f49c76ecd24adcad626",
+      "sha256:abeaae59aa5d24dfd823b1410e2862c048d3ccaeda3d9d78636171d161f666ac",
+      "sha256:afcdcfdd473f376d7d084f71ab130fbba9721fc95714c07d9d811a445a11bf55",
+      "sha256:12c3cf2910f0f756cf922d58241a990c4cd7ef58d97e8de925e33776fa1076ed",
+      "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+    ],
+    "LayersData": [
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:5a7813e071bfadf18aaa6ca8318be4824a9b6297b3240f2cc84c1db6f4113040",
+        "Size": 29754290,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:a102f36d092c0e9e0bef8c97854f606af9156aa36ab408e6fa4b88e27124a7e6",
+        "Size": 6947129,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:05ec76e31584ec109785cc7045bd88df0240411233c2fcdad66b621c662034c0",
+        "Size": 64290636,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:398182656c471d6ecca3c2d6d30e97193b40ffc8028a94515093960322f3d64e",
+        "Size": 183,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:73389fbd088f5ed5d9fd258baced59de092978b4f483920ea6d074522a105119",
+        "Size": 6885,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:cbb9175a9bc5f6553f8c0c5025ea9521898b8a3956ee24798dc35c24c6185053",
+        "Size": 2058008382,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:3d6ab8c799cda2f4c6a6277b0e24dd2231c5de83b0316968b7cce81156bb8be0",
+        "Size": 59618,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:7209097bfb98d6f8b422984480f1fddead5ea62f8900ff6b6548e060b71aca76",
+        "Size": 1684,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:545a3ada5b6bc612a11c13a659775d67eeda5a61615e7f49c76ecd24adcad626",
+        "Size": 1524,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:abeaae59aa5d24dfd823b1410e2862c048d3ccaeda3d9d78636171d161f666ac",
+        "Size": 261900862,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:afcdcfdd473f376d7d084f71ab130fbba9721fc95714c07d9d811a445a11bf55",
+        "Size": 165494330,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:12c3cf2910f0f756cf922d58241a990c4cd7ef58d97e8de925e33776fa1076ed",
+        "Size": 25096,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "Size": 32,
+        "Annotations": null
+      }
+    ],
+    "Env": [
+      "PATH=/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "NVARCH=x86_64",
+      "NVIDIA_REQUIRE_CUDA=cuda\u003e=12.8 brand=unknown,driver\u003e=470,driver\u003c471 brand=grid,driver\u003e=470,driver\u003c471 brand=tesla,driver\u003e=470,driver\u003c471 brand=nvidia,driver\u003e=470,driver\u003c471 brand=quadro,driver\u003e=470,driver\u003c471 brand=quadrortx,driver\u003e=470,driver\u003c471 brand=nvidiartx,driver\u003e=470,driver\u003c471 brand=vapps,driver\u003e=470,driver\u003c471 brand=vpc,driver\u003e=470,driver\u003c471 brand=vcs,driver\u003e=470,driver\u003c471 brand=vws,driver\u003e=470,driver\u003c471 brand=cloudgaming,driver\u003e=470,driver\u003c471 brand=unknown,driver\u003e=535,driver\u003c536 brand=grid,driver\u003e=535,driver\u003c536 brand=tesla,driver\u003e=535,driver\u003c536 brand=nvidia,driver\u003e=535,driver\u003c536 brand=quadro,driver\u003e=535,driver\u003c536 brand=quadrortx,driver\u003e=535,driver\u003c536 brand=nvidiartx,driver\u003e=535,driver\u003c536 brand=vapps,driver\u003e=535,driver\u003c536 brand=vpc,driver\u003e=535,driver\u003c536 brand=vcs,driver\u003e=535,driver\u003c536 brand=vws,driver\u003e=535,driver\u003c536 brand=cloudgaming,driver\u003e=535,driver\u003c536 brand=unknown,driver\u003e=550,driver\u003c551 brand=grid,driver\u003e=550,driver\u003c551 brand=tesla,driver\u003e=550,driver\u003c551 brand=nvidia,driver\u003e=550,driver\u003c551 brand=quadro,driver\u003e=550,driver\u003c551 brand=quadrortx,driver\u003e=550,driver\u003c551 brand=nvidiartx,driver\u003e=550,driver\u003c551 brand=vapps,driver\u003e=550,driver\u003c551 brand=vpc,driver\u003e=550,driver\u003c551 brand=vcs,driver\u003e=550,driver\u003c551 brand=vws,driver\u003e=550,driver\u003c551 brand=cloudgaming,driver\u003e=550,driver\u003c551 brand=unknown,driver\u003e=560,driver\u003c561 brand=grid,driver\u003e=560,driver\u003c561 brand=tesla,driver\u003e=560,driver\u003c561 brand=nvidia,driver\u003e=560,driver\u003c561 brand=quadro,driver\u003e=560,driver\u003c561 brand=quadrortx,driver\u003e=560,driver\u003c561 brand=nvidiartx,driver\u003e=560,driver\u003c561 brand=vapps,driver\u003e=560,driver\u003c561 brand=vpc,driver\u003e=560,driver\u003c561 brand=vcs,driver\u003e=560,driver\u003c561 brand=vws,driver\u003e=560,driver\u003c561 brand=cloudgaming,driver\u003e=560,driver\u003c561 brand=unknown,driver\u003e=565,driver\u003c566 brand=grid,driver\u003e=565,driver\u003c566 brand=tesla,driver\u003e=565,driver\u003c566 brand=nvidia,driver\u003e=565,driver\u003c566 brand=quadro,driver\u003e=565,driver\u003c566 brand=quadrortx,driver\u003e=565,driver\u003c566 brand=nvidiartx,driver\u003e=565,driver\u003c566 brand=vapps,driver\u003e=565,driver\u003c566 brand=vpc,driver\u003e=565,driver\u003c566 brand=vcs,driver\u003e=565,driver\u003c566 brand=vws,driver\u003e=565,driver\u003c566 brand=cloudgaming,driver\u003e=565,driver\u003c566",
+      "NV_CUDA_CUDART_VERSION=12.8.90-1",
+      "CUDA_VERSION=12.8.1",
+      "LD_LIBRARY_PATH=/usr/local/cuda/lib64",
+      "NVIDIA_VISIBLE_DEVICES=all",
+      "NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+      "NV_CUDA_LIB_VERSION=12.8.1-1",
+      "NV_NVTX_VERSION=12.8.90-1",
+      "NV_LIBNPP_VERSION=12.3.3.100-1",
+      "NV_LIBNPP_PACKAGE=libnpp-12-8=12.3.3.100-1",
+      "NV_LIBCUSPARSE_VERSION=12.5.8.93-1",
+      "NV_LIBCUBLAS_PACKAGE_NAME=libcublas-12-8",
+      "NV_LIBCUBLAS_VERSION=12.8.4.1-1",
+      "NV_LIBCUBLAS_PACKAGE=libcublas-12-8=12.8.4.1-1",
+      "NV_LIBNCCL_PACKAGE_NAME=libnccl2",
+      "NV_LIBNCCL_PACKAGE_VERSION=2.25.1-1",
+      "NCCL_VERSION=2.25.1-1",
+      "NV_LIBNCCL_PACKAGE=libnccl2=2.25.1-1+cuda12.8",
+      "NVIDIA_PRODUCT_NAME=CUDA",
+      "LLAMA_ARG_HOST=0.0.0.0"
+    ],
+    "Author": ""
+  },
+  {
+    "Tag": "",
+    "Created": "2026-08-17T05:27:53.574171628Z",
+    "DockerVersion": "",
+    "Labels": {
+      "maintainer": "NVIDIA CORPORATION \u003ccudatools@nvidia.com\u003e",
+      "org.opencontainers.image.created": "2026-08-17T04:29:02Z",
+      "org.opencontainers.image.description": "LLM inference in C/C++",
+      "org.opencontainers.image.ref.name": "ubuntu",
+      "org.opencontainers.image.revision": "4df29be4f4c3673f428170fda944a5b19f743bb8",
+      "org.opencontainers.image.source": "https://github.com/ggml-org/llama.cpp",
+      "org.opencontainers.image.title": "llama.cpp",
+      "org.opencontainers.image.url": "https://github.com/ggml-org/llama.cpp",
+      "org.opencontainers.image.version": "b10454"
+    },
+    "Architecture": "arm64",
+    "Variant": "",
+    "Os": "linux",
+    "Layers": [
+      "sha256:d99cf942ffb2823ac431b07833366b7498dd0b0f10e5766c7eeec2b121c89726",
+      "sha256:82b7866e3d6e514824d7aaff7ce6bd7e7fe63857e27f3399476282cc1f27a89f",
+      "sha256:9d2aa4f02863814393ebda5836ed115dbbd651f717e44cd144099e0f4b50a683",
+      "sha256:1dd5545a44b8e9113f715062ab72086e5928b28d5de102c2b57a4424e024ece6",
+      "sha256:73389fbd088f5ed5d9fd258baced59de092978b4f483920ea6d074522a105119",
+      "sha256:a779e6b8132d0ee2a791b9c4b75a1211cd5b8ac817cc14f8d9ae4a9d9f2d6389",
+      "sha256:6c59196af4092b7025afbee06dbf5988bc7362a9b57e613ed6d27a2e4bd4ba3e",
+      "sha256:2cb045257c52e7198322311f44e9b18cffb257e2f2237dab2357ca5f32221617",
+      "sha256:c14ea8af6a72c746a88b6a419c3d7aebda49a850006296d647c47fb8fec2de40",
+      "sha256:966169c060cfe6a2468a395aec54a5d0a9a3cc6aa253cb7dec2bba98deb6c097",
+      "sha256:30bb900f7a5416ef9cbfa87b20bee92ad61fba547981d19c7495cf32bd3f5641",
+      "sha256:98c595bfc164f4fbc834ff90e8362f982f0709bd7f864fc1020b507938cddc7a",
+      "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1"
+    ],
+    "LayersData": [
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:d99cf942ffb2823ac431b07833366b7498dd0b0f10e5766c7eeec2b121c89726",
+        "Size": 29962750,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:82b7866e3d6e514824d7aaff7ce6bd7e7fe63857e27f3399476282cc1f27a89f",
+        "Size": 6743271,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:9d2aa4f02863814393ebda5836ed115dbbd651f717e44cd144099e0f4b50a683",
+        "Size": 63099902,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:1dd5545a44b8e9113f715062ab72086e5928b28d5de102c2b57a4424e024ece6",
+        "Size": 184,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:73389fbd088f5ed5d9fd258baced59de092978b4f483920ea6d074522a105119",
+        "Size": 6885,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:a779e6b8132d0ee2a791b9c4b75a1211cd5b8ac817cc14f8d9ae4a9d9f2d6389",
+        "Size": 2008606390,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:6c59196af4092b7025afbee06dbf5988bc7362a9b57e613ed6d27a2e4bd4ba3e",
+        "Size": 59590,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:2cb045257c52e7198322311f44e9b18cffb257e2f2237dab2357ca5f32221617",
+        "Size": 1685,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:c14ea8af6a72c746a88b6a419c3d7aebda49a850006296d647c47fb8fec2de40",
+        "Size": 1523,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:966169c060cfe6a2468a395aec54a5d0a9a3cc6aa253cb7dec2bba98deb6c097",
+        "Size": 254324590,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:30bb900f7a5416ef9cbfa87b20bee92ad61fba547981d19c7495cf32bd3f5641",
+        "Size": 162128243,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:98c595bfc164f4fbc834ff90e8362f982f0709bd7f864fc1020b507938cddc7a",
+        "Size": 27413,
+        "Annotations": null
+      },
+      {
+        "MIMEType": "application/vnd.docker.image.rootfs.diff.tar.gzip",
+        "Digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "Size": 32,
+        "Annotations": null
+      }
+    ],
+    "Env": [
+      "PATH=/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+      "NVARCH=sbsa",
+      "NVIDIA_REQUIRE_CUDA=cuda\u003e=12.8 brand=unknown,driver\u003e=470,driver\u003c471 brand=grid,driver\u003e=470,driver\u003c471 brand=tesla,driver\u003e=470,driver\u003c471 brand=nvidia,driver\u003e=470,driver\u003c471 brand=quadro,driver\u003e=470,driver\u003c471 brand=quadrortx,driver\u003e=470,driver\u003c471 brand=nvidiartx,driver\u003e=470,driver\u003c471 brand=vapps,driver\u003e=470,driver\u003c471 brand=vpc,driver\u003e=470,driver\u003c471 brand=vcs,driver\u003e=470,driver\u003c471 brand=vws,driver\u003e=470,driver\u003c471 brand=cloudgaming,driver\u003e=470,driver\u003c471 brand=unknown,driver\u003e=535,driver\u003c536 brand=grid,driver\u003e=535,driver\u003c536 brand=tesla,driver\u003e=535,driver\u003c536 brand=nvidia,driver\u003e=535,driver\u003c536 brand=quadro,driver\u003e=535,driver\u003c536 brand=quadrortx,driver\u003e=535,driver\u003c536 brand=nvidiartx,driver\u003e=535,driver\u003c536 brand=vapps,driver\u003e=535,driver\u003c536 brand=vpc,driver\u003e=535,driver\u003c536 brand=vcs,driver\u003e=535,driver\u003c536 brand=vws,driver\u003e=535,driver\u003c536 brand=cloudgaming,driver\u003e=535,driver\u003c536 brand=unknown,driver\u003e=550,driver\u003c551 brand=grid,driver\u003e=550,driver\u003c551 brand=tesla,driver\u003e=550,driver\u003c551 brand=nvidia,driver\u003e=550,driver\u003c551 brand=quadro,driver\u003e=550,driver\u003c551 brand=quadrortx,driver\u003e=550,driver\u003c551 brand=nvidiartx,driver\u003e=550,driver\u003c551 brand=vapps,driver\u003e=550,driver\u003c551 brand=vpc,driver\u003e=550,driver\u003c551 brand=vcs,driver\u003e=550,driver\u003c551 brand=vws,driver\u003e=550,driver\u003c551 brand=cloudgaming,driver\u003e=550,driver\u003c551 brand=unknown,driver\u003e=560,driver\u003c561 brand=grid,driver\u003e=560,driver\u003c561 brand=tesla,driver\u003e=560,driver\u003c561 brand=nvidia,driver\u003e=560,driver\u003c561 brand=quadro,driver\u003e=560,driver\u003c561 brand=quadrortx,driver\u003e=560,driver\u003c561 brand=nvidiartx,driver\u003e=560,driver\u003c561 brand=vapps,driver\u003e=560,driver\u003c561 brand=vpc,driver\u003e=560,driver\u003c561 brand=vcs,driver\u003e=560,driver\u003c561 brand=vws,driver\u003e=560,driver\u003c561 brand=cloudgaming,driver\u003e=560,driver\u003c561 brand=unknown,driver\u003e=565,driver\u003c566 brand=grid,driver\u003e=565,driver\u003c566 brand=tesla,driver\u003e=565,driver\u003c566 brand=nvidia,driver\u003e=565,driver\u003c566 brand=quadro,driver\u003e=565,driver\u003c566 brand=quadrortx,driver\u003e=565,driver\u003c566 brand=nvidiartx,driver\u003e=565,driver\u003c566 brand=vapps,driver\u003e=565,driver\u003c566 brand=vpc,driver\u003e=565,driver\u003c566 brand=vcs,driver\u003e=565,driver\u003c566 brand=vws,driver\u003e=565,driver\u003c566 brand=cloudgaming,driver\u003e=565,driver\u003c566",
+      "NV_CUDA_CUDART_VERSION=12.8.90-1",
+      "CUDA_VERSION=12.8.1",
+      "LD_LIBRARY_PATH=/usr/local/cuda/lib64",
+      "NVIDIA_VISIBLE_DEVICES=all",
+      "NVIDIA_DRIVER_CAPABILITIES=compute,utility",
+      "NV_CUDA_LIB_VERSION=12.8.1-1",
+      "NV_NVTX_VERSION=12.8.90-1",
+      "NV_LIBNPP_VERSION=12.3.3.100-1",
+      "NV_LIBNPP_PACKAGE=libnpp-12-8=12.3.3.100-1",
+      "NV_LIBCUSPARSE_VERSION=12.5.8.93-1",
+      "NV_LIBCUBLAS_PACKAGE_NAME=libcublas-12-8",
+      "NV_LIBCUBLAS_VERSION=12.8.4.1-1",
+      "NV_LIBCUBLAS_PACKAGE=libcublas-12-8=12.8.4.1-1",
+      "NV_LIBNCCL_PACKAGE_NAME=libnccl2",
+      "NV_LIBNCCL_PACKAGE_VERSION=2.25.1-1",
+      "NCCL_VERSION=2.25.1-1",
+      "NV_LIBNCCL_PACKAGE=libnccl2=2.25.1-1+cuda12.8",
+      "NVIDIA_PRODUCT_NAME=CUDA",
+      "LLAMA_ARG_HOST=0.0.0.0"
+    ],
+    "Author": ""
+  }
+]
