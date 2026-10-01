@@ -4,10 +4,10 @@ apiVersion: 'v3'
 metadata:
   name: aimqwen38llama
   icon: https://raw.githubusercontent.com/bayerhazard/aimighty-llmqwen38llama/main/icon.png
-  description: "Qwen3.8-27B (RVN uncensored) via buun-llama-cpp + Olares Model Console (llm-init) - DFlash2 speculation, 150K context, vision, warm-restart resume."
+  description: "Qwen3.8-27B (RVN uncensored) via buun-llama-cpp + Olares Model Console (llm-init) - DFlash2 speculation, 256K context (dynamic VBR KV), vision, warm-restart resume."
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.27'
+  version: '26.9.28'
   categories:
     - AI
     - Vision
@@ -34,8 +34,9 @@ workloadReplicas:
   llminit: 1
 spec:
   onlyAdmin: true
-  versionName: '26.9.27'
+  versionName: '26.9.28'
   upgradeDescription: |
+    v26.9.28: VBR (variable-bit-rate KV) enabled end-to-end - K/V now use the dynamic VBR codec instead of static q8_0/turbo4, with a f16 entry tier and a turbo8 (8.125 bits/value) floor pinned, so the fit pass can size the KV to the card while long contexts degrade only as far as the floor. Context raised 150K -> 256K (n_ctx_slot 262144), DFlash2 speculation (n=7) and warm-restart resume unchanged. Measured on the RTX 5090 slice (23.5 GiB): entry f16 + floor turbo8 + 256K + draft loads at ~19.3 GiB, draft acceptance 0.62. Built for Olares 1.12.7.
     v26.9.27: Model Console rollout (llm-init v1.3.5, OpenAI API on port 8090, shared appCommon HF cache). Manifest aligned to the v3 validator and the working AIM Qwen3.8 35B app: flat resource envelope with requiredGpu:1 and an exclusive nvidia.com/gpu binding (no HAMi nvidia.com/gpumem, which breaks stop/suspend on Olares 1.12.7), supportArch amd64+arm64. Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume. Existing entrance URL and custom route stay valid. Built for Olares 1.12.7.
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One - now served through the Olares Model Console.
@@ -43,13 +44,14 @@ spec:
     **Model**
     - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic abliteration, Q4_K_M, native MTP head)
     - Vision projector (mmproj Q8_0) and DFlash2 draft, fetched into the shared HF cache
-    - 150K token context (K q8_0, V turbo4 - 4-bit Walsh-Hadamard rotated)
+    - 256K token context (dynamic VBR KV: f16 entry, turbo8 8.125 bpv floor, quality-anchor cache 1024 MiB)
 
     **Model Console**
     - beclab/llm-init v1.3.5 downloads the weights into the shared appCommon HF cache, publishes the model card on /api/model-spec, serves the console UI and the OpenAI-compatible API on port 8090, and reverse-proxies the engine on llamacpp:8081.
 
     **Inference Engine**
     - buun-llama-cpp (spiritbuun master ab22bc53, CUDA 13.1 sm_120 custom build)
+    - Dynamic VBR KV cache: f16 entry, turbo8 (8.125 bpv) floor, --vbr-prompt-cache with a 1024 MiB quality anchor
     - DFlash2 speculative decoding (draft-dflash, Q4_K_M draft, --spec-draft-n-max 7)
     - Warm-restart resume: conversation KV is saved at shutdown and restored at startup (--resume)
     - Parallel slots: 1, Batch: 1024/256, Reasoning: medium (8192 budget), cache-reuse 256
@@ -144,7 +146,7 @@ envs:
     description:  "The model capabilities. Pick what your model supports, if no extra capabilities, pick None."
   - envName: ENGINE_ARGS
     required: true
-    default: '--spec-draft-hf incoai/Qwen3.8-27B-DFlash2-GGUF:Q4_K_M --spec-type draft-dflash --spec-draft-n-max 7 --cache-type-k q8_0 --cache-type-v turbo4 --ctx-size 150000 --parallel 1 --batch-size 1024 --ubatch-size 256 -ngl all --flash-attn on --jinja --reasoning-preserve --reasoning-budget 8192 --reasoning-budget-message Stop-reasoning-and-answer-now. --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 --resume --resume-no-host-cache --resume-path /run/llm-init/resume'
+    default: '--spec-draft-hf incoai/Qwen3.8-27B-DFlash2-GGUF:Q4_K_M --spec-type draft-dflash --spec-draft-n-max 7 --cache-type-k vbr --cache-type-v vbr --vbr-entry f16 --vbr-floor turbo8 --vbr-prompt-cache --vbr-anchor-cache-mib 1024 --ctx-size 262144 --parallel 1 --batch-size 1024 --ubatch-size 256 -ngl all --flash-attn on --jinja --reasoning-preserve --reasoning-budget 8192 --reasoning-budget-message Stop-reasoning-and-answer-now. --temp 0.6 --top-p 0.95 --top-k 20 --min-p 0.0 --resume --resume-no-host-cache --resume-path /run/llm-init/resume'
     type: string
     editable: true
     applyOnChange: true
