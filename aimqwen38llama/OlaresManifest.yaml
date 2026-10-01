@@ -7,7 +7,7 @@ metadata:
   description: "Qwen3.8-27B (RVN uncensored) via buun-llama-cpp + Olares Model Console (llm-init) - DFlash2 speculation, 256K context (dynamic VBR KV), vision, warm-restart resume."
   appid: aimqwen38llama
   title: AIM Qwen3.8 27B
-  version: '26.9.28'
+  version: '26.10.1'
   categories:
     - AI
     - Vision
@@ -34,10 +34,9 @@ workloadReplicas:
   llminit: 1
 spec:
   onlyAdmin: true
-  versionName: '26.9.28'
+  versionName: '26.10.1'
   upgradeDescription: |
-    v26.9.28: VBR (variable-bit-rate KV) enabled end-to-end - K/V now use the dynamic VBR codec instead of static q8_0/turbo4, with a f16 entry tier and a turbo8 (8.125 bits/value) floor pinned, so the fit pass can size the KV to the card while long contexts degrade only as far as the floor. Context raised 150K -> 256K (n_ctx_slot 262144), DFlash2 speculation (n=7) and warm-restart resume unchanged. Measured on the RTX 5090 slice (23.5 GiB): entry f16 + floor turbo8 + 256K + draft loads at ~19.3 GiB, draft acceptance 0.62. Built for Olares 1.12.7.
-    v26.9.27: Model Console rollout (llm-init v1.3.5, OpenAI API on port 8090, shared appCommon HF cache). Manifest aligned to the v3 validator and the working AIM Qwen3.8 35B app: flat resource envelope with requiredGpu:1 and an exclusive nvidia.com/gpu binding (no HAMi nvidia.com/gpumem, which breaks stop/suspend on Olares 1.12.7), supportArch amd64+arm64. Flagship stack unchanged - same engine (buun-llama-cpp ab22bc53), same RVN weights, 150K context (K q8_0 / V turbo4), DFlash2 speculation (n=7) and warm-restart resume. Existing entrance URL and custom route stay valid. Built for Olares 1.12.7.
+    v26.10.1 Initial Release for AImighty Expert
   fullDescription: |
     AImighty flagship stack for Qwen3.8-27B, the dense hybrid-attention VL model, optimized for coding, vision and long-horizon agentic workflows on Olares One - now served through the Olares Model Console.
 
@@ -67,6 +66,7 @@ spec:
   submitter: Aimighty
   locale:
     - en-US
+    - de-DE
     - zh-CN
   license:
     - text: Apache-2.0

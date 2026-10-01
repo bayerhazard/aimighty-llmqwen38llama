@@ -25,3 +25,5 @@ spec:
 
     **资源占用**
     约 22 GiB 显存（23Gi 显存切片），24-40 GiB 内存，共享 appCommon HF 缓存中约 19 GB 模型缓存。
+  upgradeDescription: |
+    v26.10.1 Initial Release for AImighty Expert

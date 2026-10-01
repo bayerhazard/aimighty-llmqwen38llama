@@ -1,0 +1,30 @@
+metadata:
+  description: "Qwen3.8-27B Vision via buun-llama-cpp + Olares Model Console (llm-init)"
+  title: AIM Qwen3.8 27B
+
+spec:
+  fullDescription: |
+    AImighty-Flaggschiff-Stack für Qwen3.8-27B, das dichte Hybrid-Attention-VL-Modell, optimiert für Coding, Vision und langfristige Agenten-Workflows auf Olares One — bereitgestellt über die Olares Model Console.
+
+    **Modell**
+    - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic-Abliteration, Q4_K_M, nativer MTP-Head)
+    - Vision-Projektor (mmproj Q8_0) und DFlash2-Draft, geladen in den geteilten HF-Cache
+    - 256K-Token-Kontext (dynamischer VBR-KV: f16-Entry, turbo8 8,125 bpv-Floor, Quality-Anchor-Cache 1024 MiB)
+
+    **Model Console**
+    - beclab/llm-init v1.3.5 lädt die Gewichte in den geteilten appCommon-HF-Cache, veröffentlicht die Modellkarte auf /api/model-spec, liefert die Console-UI und die OpenAI-kompatible API auf Port 8090 und proxyt die Engine auf llamacpp:8081.
+
+    **Inference-Engine**
+    - buun-llama-cpp (spiritbuun master ab22bc53, CUDA-13.1-sm_120-Custom-Build)
+    - Dynamischer VBR-KV-Cache: f16-Entry, turbo8 (8,125 bpv)-Floor, --vbr-prompt-cache mit 1024-MiB-Quality-Anchor
+    - DFlash2-Spekulationsdekodierung (draft-dflash, Q4_K_M-Draft, --spec-draft-n-max 7)
+    - Warm-Restart-Resume: der Konversations-KV wird beim Herunterfahren gespeichert und beim Start wiederhergestellt (--resume)
+    - Parallel-Slots: 1, Batch: 1024/256, Reasoning: Medium (8192 Budget), Cache-Reuse 256
+
+    **API**
+    OpenAI-kompatibel: /v1/chat/completions, /v1/models, /health (Port 8090).
+
+    **Ressourcenverbrauch**
+    ~22 GiB VRAM (23-GiB-Memory-Slice), 24–40 GiB RAM, ~19 GB Modell-Cache im geteilten appCommon-HF-Cache.
+  upgradeDescription: |
+    v26.10.1 Initialer Release für den AImighty Experte

@@ -1,5 +1,5 @@
 metadata:
-  description: "AIM Qwen3.8 27B - RVN (uncensored) via buun-llama-cpp + Olares Model Console (llm-init)"
+  description: "Qwen3.8-27B Vision via buun-llama-cpp + Olares Model Console (llm-init) — DFlash2 speculation, 256K context (dynamic VBR KV), warm-restart resume"
   title: AIM Qwen3.8 27B
 
 spec:
@@ -9,7 +9,7 @@ spec:
     **Model**
     - 0bserverx/Qwen3.8-27B-Heretic-Abliterated-Uncensored (RVN: ARA + Heretic abliteration, Q4_K_M, native MTP head)
     - Vision projector (mmproj Q8_0) and DFlash2 draft, fetched into the shared HF cache
-    - 150K token context (K q8_0, V turbo4 - 4-bit Walsh-Hadamard rotated)
+    - 256K token context (dynamic VBR KV: f16 entry, turbo8 8.125 bpv floor, quality-anchor cache 1024 MiB)
 
     **Model Console**
     - beclab/llm-init v1.3.5 downloads the weights into the shared appCommon HF cache, publishes the model card on /api/model-spec, serves the console UI and the OpenAI-compatible API on port 8090, and reverse-proxies the engine on llamacpp:8081.
@@ -25,3 +25,5 @@ spec:
 
     **Resource Usage**
     ~22 GiB VRAM (23Gi memory slice), 24-40 GiB RAM, ~19 GB model cache in the shared appCommon HF cache.
+  upgradeDescription: |
+    v26.10.1 Initial Release for AImighty Expert
